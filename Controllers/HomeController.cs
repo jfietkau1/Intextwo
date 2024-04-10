@@ -42,6 +42,12 @@ namespace Intextwo.Controllers
         {
             return View();
         }
+        [Authorize(Roles = "Admin")]
+        public IActionResult AdminUserEdit()
+        {
+            var users = _repo.users;
+            return View("AdminUserEdit", users);
+        }
 
         [HttpGet]
         [Authorize(Roles = "Admin")]

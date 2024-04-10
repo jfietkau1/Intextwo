@@ -62,6 +62,12 @@ namespace Intextwo.Controllers
             return View(viewModelList);
         }
 
+        [Authorize (Roles = "Admin")]
+        public IActionResult AdminMenu()
+        {
+            return View();
+        }
+
         [HttpGet]
         [Authorize(Roles = "Admin")]
         public IActionResult AdminAddProduct()

@@ -10,18 +10,20 @@ namespace Intextwo.Pages
     public class CartModel : PageModel
     {
         private readonly ILegoRepository _repo;
-        public CartModel(ILegoRepository temp)
+        public Cart Cart { get; set; }
+
+        public CartModel(ILegoRepository temp, Cart cartService)
         {
             _repo = temp;
+            Cart = cartService;
         }
 
-        public Cart? Cart { get; set; }
         public string ReturnUrl { get; set; } = "/";
 
         public void OnGet(string returnUrl)
         {
             ReturnUrl = returnUrl ?? "/";
-            Cart = HttpContext.Session.GetJson<Cart>("cart") ?? new Cart();
+
         }
 
 
@@ -32,15 +34,18 @@ namespace Intextwo.Pages
 
             if(prod != null)
             {
-                Cart = HttpContext.Session.GetJson<Cart>("cart") ?? new Cart();
                 Cart.AddItem(prod, 1);
-                HttpContext.Session.SetJson("cart", Cart);
-
             }
             return RedirectToPage(new {returnUrl = returnUrl});
 
         }
-
+        public IActionResult OnPostRemove(int productid, string returnUrl)
+        {
+            //this fetches the cartline that has a matching productid and then passes that product into the removeline function
+            //the remove line function expects a product object to remove
+            Cart.RemoveLine(Cart.Lines.First(x => x.Product.product_ID == productid).Product);
+            return RedirectToPage(new {returnUrl = returnUrl});
+        }
 
     }
 }

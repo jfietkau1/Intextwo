@@ -9,6 +9,7 @@ using Microsoft.ML.OnnxRuntime;
 using Microsoft.ML.OnnxRuntime.Tensors;
 using Elfie.Serialization;
 using Microsoft.AspNetCore.Authorization;
+using System.Drawing.Printing;
 
 
 namespace Intextwo.Controllers
@@ -28,38 +29,9 @@ namespace Intextwo.Controllers
         public IActionResult Index()
         {
 
-            var viewModelList = _repo.Orders
-                .Join(
-                    _repo.Customers,
-                    order => order.customer_ID,
-                    customer => customer.customer_ID,
-                    (order, customer) => new OrderViewModel
-                    {
-                        // Order properties
-                        transaction_ID = order.transaction_ID,
-                        date = order.date,
-                        day_of_week = order.day_of_week,
-                        time = order.time,
-                        entry_mode = order.entry_mode,
-                        amount = order.amount,
-                        type_of_transaction = order.type_of_transaction,
-                        shipping_address = order.shipping_address,
-                        bank = order.bank,
-                        type_of_card = order.type_of_card,
-                        fraud = order.fraud,
+            
 
-                        // Customer properties
-                        customer_ID = customer.customer_ID,
-                        first_name = customer.first_name,
-                        last_name = customer.last_name,
-                        birth_date = customer.birth_date,
-                        country_of_residence = customer.country_of_residence,
-                        gender = customer.gender,
-                        age = customer.age
-                    }
-                ).Take(1).ToList();
-
-            return View(viewModelList);
+            return View();
         }
 
 
@@ -69,6 +41,20 @@ namespace Intextwo.Controllers
         public IActionResult AdminMenu()
         {
             return View();
+        }
+        [Authorize(Roles = "Admin")]
+        public IActionResult AdminUserEdit()
+        {
+            var users = _repo.AspNetUsers;
+            return View("AdminUserEdit", users);
+        }
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public IActionResult DeleteUser(int id)
+        {
+            var recordToDelete = _repo.AspNetUsers
+                .Single(x => x.Id == id);
+            return View(recordToDelete);
         }
 
         [HttpGet]
@@ -114,6 +100,7 @@ namespace Intextwo.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult DeleteProd(int id)
         {
             var recordToDelete = _repo.Products
@@ -122,6 +109,7 @@ namespace Intextwo.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteProd(Product prod)
         {
             //var product = await _repo.Products.FirstOrDefaultAsync(p => p.product_ID == id);
@@ -134,10 +122,15 @@ namespace Intextwo.Controllers
         }
 
         [HttpGet]
-        public IActionResult CustProductList(int pageNum, string? searchParam)
+        public IActionResult CustProductList(int pageNum, string? searchParam, int? pageSizes)
         {
             if (pageNum == 0) { pageNum = 1; }
-            var pageSize = 6;// this is the page size
+            int pageSize = 6;
+            if(pageSizes != null)
+            {
+                pageSize = pageSizes.Value;
+            }
+
 
             var productQuery = _repo.Products
             .Where(x => searchParam == null || EF.Functions.Like(x.name, $"%{searchParam}%")); //executes part of the query
@@ -154,9 +147,9 @@ namespace Intextwo.Controllers
                 .Take(pageSize),
                 PaginationInfo = new PaginationInfo() 
                 {
-                CurrentPage = pageNum,
-                ItemsPerPage = pageSize,
-                TotalItems = productQuery.Count()
+                    CurrentPage = pageNum,
+                    ItemsPerPage = pageSize,
+                    TotalItems = productQuery.Count()
 
                 }
             };
@@ -167,6 +160,66 @@ namespace Intextwo.Controllers
         {
             return View();
         }
+
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public IActionResult AdminViewOrders(int pageNum)
+        {
+            if(pageNum == 0)
+            {
+                pageNum = 1;
+            }
+            var pageSize = 6;
+            var query = _repo.Orders // This method needs to exist in your repository
+                        .Join(_repo.Customers, // This method also needs to be defined
+                            order => order.customer_ID, // Assumes Order has a CustomerId
+                            customer => customer.customer_ID, // Assumes Customer has an Id
+                            (order, customer) => new ProductOrderViewModel
+                            {
+                                // Map properties from Order
+                                transaction_ID = order.transaction_ID,
+                                date = order.date,
+                                day_of_week = order.day_of_week,
+                                time = order.time,
+                                entry_mode = order.entry_mode,
+                                amount = order.amount,
+                                type_of_transaction = order.type_of_transaction,
+                                shipping_address = order.shipping_address,
+                                bank = order.bank,
+                                type_of_card = order.type_of_card,
+                                fraud = order.fraud,
+
+                                // Map properties from Customer
+                                customer_ID = customer.customer_ID,
+                                first_name = customer.first_name,
+                                last_name = customer.last_name,
+                                birth_date = customer.birth_date,
+                                country_of_residence = customer.country_of_residence,
+                                gender = customer.gender,
+                                age = customer.age // Ensure your model supports this directly or adjust accordingly
+                            })
+                        .AsQueryable();
+
+            
+            var skipAmount = (pageNum - 1) * pageSize;
+            var productOrders = query.Skip(skipAmount).Take(pageSize).ToList();
+            var totalItems = query.Count();
+
+            var viewModel = new OrderViewModel
+            {
+                OrdersAndCustomers = productOrders.AsQueryable(),
+                PaginationInfo = new PaginationInfo
+                {
+                    CurrentPage = pageNum,
+                    ItemsPerPage = pageSize,
+                    TotalItems = totalItems
+                }
+            };
+
+            return View(viewModel);
+        }
+
+
 
 
 

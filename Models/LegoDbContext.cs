@@ -18,7 +18,8 @@ namespace Intextwo.Models
         public virtual DbSet<Product> products { get; set; }
         public virtual DbSet<Order> orders { get; set; }
         public virtual DbSet<lineItem> lineItems { get; set; }
-        public virtual DbSet<User> users { get; set; }
+        public virtual DbSet<ApplicationUser> AspNetUsers { get; set; }
+
 
     }
 }

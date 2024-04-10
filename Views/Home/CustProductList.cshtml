@@ -6,14 +6,25 @@
 @using Intextwo.Infrastructure
 @model ProductListViewModel
 
+<div class="green-brick text-white">
+    <h2 class="center">
+        PRODUCTS
+    </h2>
+</div>
+
+<div class="row p-2 bg-white green-border shadow rounded-3">
+    <div class="row justify-content-md-start">
+@*         <form asp-action="CustProductList" asp-route-pageNum="1" asp-route-pageSize="" method="get">
+
+        </form> *@
+
+        <div class="col btn btn-light text-black border border-black m-2" value="5">5</div>
+        <div class="col btn btn-light text-black border border-black m-2" value="10">10</div>
+        <div class="col btn btn-light text-black border border-black m-2 " value="20">20</div>
+
+    </div>
 
 
-
-
-
-<br />
-
-<div class="row">
     @foreach (var x in Model.Products)
     {
         <div class="col-md-4 mb-4">
@@ -41,8 +52,13 @@
             </div>
         </div>
     }
+    <div class="col-1">
+        <h3>Pages:</h3>
+        <hr />
+        <div page-model="@Model.PaginationInfo" page-action="CustProductList" page-class-enabled="true" page-class="btn bg-danger " page-class-normal="btn-outline-light text-light" page-class-selected="btn bg-white text-black" class="btn-group pull-right m-3 rounded-3 border border-danger ">Pages: </div>
+    </div>
 </div>
-<div page-model="@Model.PaginationInfo" page-action="CustProductList" page-class-enabled="true" page-class="btn" page-class-normal="btn-outline-dark" page-class-selected="btn-primary" class="btn-group pull-right m-1"></div>
+
 
 
 

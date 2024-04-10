@@ -156,6 +156,13 @@ body {
     text-align: center;
 }
 
+.cart-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
 .green-brick {
     background-image: url('../lib/img/green_lego.png');
     background-size: 100%;
@@ -186,8 +193,55 @@ body {
 
 .btn:hover {
     color: white;
+    background-size: 105%;
 }
 
+.cart-box {
+    background-image: url('../lib/img/shopping_cart.png');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin-top: 25px;
+    height: 80px;
+    width: 230px;
+}
+
+.cart-logo {
+    background-image: url('../lib/img/cart-logo.png');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: left;
+    text-align: left;
+    margin-top: 25px;
+    height: 40px;
+    width: 40px;
+}
+
+a.cart-box {
+    color: white;
+    background-color: transparent;
+    text-decoration: none;
+}
+
+.hr {
+    margin: 1rem 0;
+    color: inherit;
+    background-color: currentColor;
+    border: 0;
+    opacity: 0.25;
+}
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #000;
+    margin: 1em 0;
+    padding: 0;
+}
 /*.background-image {
     position: absolute;
     inset: 0;

@@ -5,21 +5,22 @@
 }
 @model Cart
 
-<div class="">
+<div class="row justify-content-end">
 
-    <a class="btn btn-small btn-secondary navbar-btn" asp-page="/cart" asp-route-returnUrl="@Context.Request.Path">
+    <a class="cart-box text-white" asp-page="/cart" asp-route-returnUrl="@Context.Request.Path">
         @if (Model.Lines.Count() > 0)
         {
-            <small class="navbar-text">
+            @* <div class="cart-logo absolute-center"></div> *@
+            <small class="navbar-text absolute-center">
                 <b>Your Cart: </b>@Model.Lines.Sum(x => x.Quantity) item(s),
                 @Model.CalculateTotal().ToString("c")
-
             </small>
 
         }
         else
         {
-            <small>
+            @* <small class="cart-logo absolute-center"></small> *@
+            <small class="navbar-text absolute-center">
                 <b>Cart is empty</b>
             </small>
         }

@@ -3,7 +3,7 @@
 }
 @model IEnumerable<Intextwo.Models.ViewModels.OrderViewModel>
 
-<div class="green-brick text-white border border-danger">
+<div class="green-brick text-white">
     <h2 class="center">
         WELCOME
     </h2>
@@ -12,6 +12,9 @@
 <div class="row">
     <div class="w-100"></div>
     <div class="bg-white col green-border rounded-3 shadow">
+        <div class="btn btn-outline-success absolute-center m-2">
+            <a asp-controller="Home" asp-action="CustProductList" asp-route-pageNum="1">Product List</a>
+        </div>
         <div class="container">
             <table>
                 <thead>
@@ -62,7 +65,6 @@
                     }
 
                     <Br />
-                    <a asp-controller="Home" asp-action="CustProductList" asp-route-pageNum="1">Product List</a>
                 </tbody>
             </table>
         </div>

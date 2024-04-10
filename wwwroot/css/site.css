@@ -184,6 +184,10 @@ body {
     top: auto;
 }
 
+.btn:hover {
+    color: white;
+}
+
 /*.background-image {
     position: absolute;
     inset: 0;

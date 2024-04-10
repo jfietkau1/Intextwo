@@ -63,6 +63,63 @@ namespace Intextwo.Controllers
         }
 
         [HttpGet]
+        public IActionResult AdminAddProduct()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AdminAddProduct(Product product)
+        {
+            _repo.Add(product);
+            _repo.SaveChanges();
+            return RedirectToAction("AdminProductList");
+        }
+
+        public IActionResult AdminProductList()
+        {
+            var products = _repo.Products.ToList();
+
+            return View(products);
+        }
+
+        [HttpGet]
+        public IActionResult EditProd(int id)
+        {
+            var recordToEdit = _repo.Products
+                .Single(x => x.product_ID == id);
+            return View("AdminAddProduct", recordToEdit);
+        }
+        [HttpPost]
+        public IActionResult EditProd(Product prod)
+        {
+            _repo.Update(prod);
+            _repo.SaveChanges();
+
+            return RedirectToAction("AdminProductList");
+        }
+
+        [HttpGet]
+        public IActionResult DeleteProd(int id)
+        {
+            var recordToDelete = _repo.Products
+                .Single(x => x.product_ID == id);
+            return View(recordToDelete);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteProd(Product prod)
+        {
+            //var product = await _repo.Products.FirstOrDefaultAsync(p => p.product_ID == id);
+            var product = prod;
+
+            _repo.Remove(product); // Correctly removes the product from the repository
+            _repo.SaveChanges();
+
+            return RedirectToAction("AdminProductList"); // Assuming you have a ProductList action
+        }
+
+        [HttpGet]
         public IActionResult CustProductList(int pageNum, string? searchParam)
         {
             if (pageNum == 0) { pageNum = 1; }

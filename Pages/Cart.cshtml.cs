@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Intextwo.Models;
 using Microsoft.Identity.Client;
 using Microsoft.AspNetCore.Http;
+using Intextwo.Infrastructure;
 
 namespace Intextwo.Pages
 {
@@ -14,27 +15,30 @@ namespace Intextwo.Pages
             _repo = temp;
         }
 
-        public Cart? cart { get; set; }
+        public Cart? Cart { get; set; }
+        public string ReturnUrl { get; set; } = "/";
 
-        public void OnGet()
+        public void OnGet(string returnUrl)
         {
-
+            ReturnUrl = returnUrl ?? "/";
+            Cart = HttpContext.Session.GetJson<Cart>("cart") ?? new Cart();
         }
 
 
-        public void OnPost(int productid)
+        public IActionResult OnPost(int productid, string returnUrl)
         {
-            //this is producing an error when it tries to render its cshtml page because it says that it is
-            //trying to render something that is null or is not set to an instance of the needed model.
-
-
             Product prod = _repo.Products
                 .FirstOrDefault(x => x.product_ID == productid);
 
-            Cart cart = new Cart();
+            if(prod != null)
+            {
+                Cart = HttpContext.Session.GetJson<Cart>("cart") ?? new Cart();
+                Cart.AddItem(prod, 1);
+                HttpContext.Session.SetJson("cart", Cart);
 
+            }
+            return RedirectToPage(new {returnUrl = returnUrl});
 
-            cart.AddItem(prod, 1);
         }
 
 

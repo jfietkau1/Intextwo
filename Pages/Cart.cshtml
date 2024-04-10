@@ -16,7 +16,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach(var l in Model.cart?.Lines ?? Enumerable.Empty<Cart.CartLine>())
+        @foreach(var l in Model.Cart?.Lines ?? Enumerable.Empty<Cart.CartLine>())
         {
             <tr>
                 <td class="text-left">@l.Product.name</td>
@@ -29,11 +29,16 @@
     <foot>
         <tr>
             <td colspan="3" class="text-right">Total</td>
-            <td class="text-right">@Model.cart.CalculateTotal().ToString("c")</td>
+            <td class="text-right">@Model.Cart.CalculateTotal().ToString("c")</td>
         </tr>
     </foot>
 
 </table>
+
+<div class="text-center">
+    <a class="btn btn-primary" href="@Model.ReturnUrl">Continue Shopping</a>
+    
+</div>
 
 
 

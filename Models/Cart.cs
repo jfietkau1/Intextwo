@@ -23,7 +23,7 @@ namespace Intextwo.Models
             }
             else
             {
-                line.Quantity =+ quantity;
+                line.Quantity += quantity;
             }
         }
 

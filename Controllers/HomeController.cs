@@ -58,7 +58,7 @@ namespace Intextwo.Controllers
         [HttpGet]
         public IActionResult CustProductList(int pageNum, string? searchParam)
         {
-
+            if (pageNum == 0) { pageNum = 1; }
             var pageSize = 6;// this is the page size
 
             var productQuery = _repo.Products

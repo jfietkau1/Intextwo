@@ -1,0 +1,44 @@
+﻿@page
+@model Intextwo.Pages.CartModel
+@{
+}
+<h2>Your Cart</h2>
+
+<table class="table table-borderd table-striped">
+    <thead>
+        <tr>
+            <th>Product</th>           
+
+            <th>Quantity</th>
+            <th class="text-right">Amount</th>
+            <th class="text-right">Subtotal</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var l in Model.Cart?.Lines ?? Enumerable.Empty<Cart.CartLine>())
+        {
+            <tr>
+                <td class="text-left">@l.Product.name</td>
+                <td class="text-center">@l.Quantity</td>
+                <td class="text-right">$@l.Product.price</td>
+                <td class="text-right">@((l.Quantity * l.Product.price)?.ToString("c") ?? "N/A")</td>
+            </tr>
+        }
+    </tbody>
+    <foot>
+        <tr>
+            <td colspan="3" class="text-right">Total</td>
+            <td class="text-right">@Model.Cart.CalculateTotal().ToString("c")</td>
+        </tr>
+    </foot>
+
+</table>
+
+<div class="text-center">
+    <a class="btn btn-primary" href="@Model.ReturnUrl">Continue Shopping</a>
+    
+</div>
+
+
+

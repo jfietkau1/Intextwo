@@ -6,18 +6,18 @@
 @using Intextwo.Infrastructure
 @model ProductListViewModel
 
+<div class="green-brick text-white">
+    <h2 class="center">
+        PRODUCTS
+    </h2>
+</div>
 
-
-
-
-
-<br />
-<div class="row">
+<div class="row p-2 bg-white green-border shadow rounded-3">
     @foreach (var x in Model.Products)
     {
         <div class="col-md-4 mb-4">
             <div class="card">
-                <a asp-controller="Home" asp-action="ViewProduct" asp-route-id="@x.product_ID" class="card-link">
+                <a asp-controller="Home" asp-action="SeeProd" asp-route-id="@x.product_ID" class="card-link">
                     <img src="@x.img_link" class="card-img-top" alt="Product Image">
                     <div class="card-body">
                         <h5 class="card-title">@x.name</h5>
@@ -40,8 +40,13 @@
             </div>
         </div>
     }
+    <div class="col-1">
+        <h3>Pages:</h3>
+        <hr />
+        <div page-model="@Model.PaginationInfo" page-action="CustProductList" page-class-enabled="true" page-class="btn bg-danger " page-class-normal="btn-outline-light text-light" page-class-selected="btn bg-white text-black" class="btn-group pull-right m-3 rounded-3 border border-danger ">Pages: </div>
+    </div>
 </div>
-<div page-model="@Model.PaginationInfo" page-action="CustProductList" page-class-enabled="true" page-class="btn" page-class-normal="btn-outline-dark" page-class-selected="btn-primary" class="btn-group pull-right m-1"></div>
+
 
 
 

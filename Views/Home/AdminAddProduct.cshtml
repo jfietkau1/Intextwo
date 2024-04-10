@@ -1,0 +1,45 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model Product
+
+<h1>Add a new product</h1>
+
+<form method="post">
+
+    <input type="hidden" asp-for="product_ID"></input>
+
+    <label asp-for="name">Product Name: </label>
+    <input asp-for="name" />
+    <br />
+    <label asp-for="year">Product Year: </label>
+    <input asp-for="year" />
+    <br />
+    <label asp-for="num_parts">Number of Parts: </label>
+    <input asp-for="num_parts" />
+    <br />
+    <label asp-for="price">Price: </label>
+    <input asp-for="price" />
+    <br />
+    <label asp-for="img_link">Image Link: </label>
+    <input asp-for="img_link" />
+    <br />
+    <label asp-for="primary_color">Primary Color: </label>
+    <input asp-for="primary_color" />
+    <br />
+    <label asp-for="secondary_color">Secondary Color: </label>
+    <input asp-for="secondary_color" />
+    <br />
+    <label asp-for="description">Description: </label>
+    <input asp-for="description" />
+    <br />
+    <label asp-for="category">Category: </label>
+    <input asp-for="category" />
+    <br />
+    <br />
+
+    <button type="submit">Add Product</button>
+</form>

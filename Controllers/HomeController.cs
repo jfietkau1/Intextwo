@@ -62,6 +62,77 @@ namespace Intextwo.Controllers
             return View(viewModelList);
         }
 
+
+
+
+        [Authorize (Roles = "Admin")]
+        public IActionResult AdminMenu()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public IActionResult AdminAddProduct()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public IActionResult AdminAddProduct(Product product)
+        {
+            _repo.Add(product);
+            _repo.SaveChanges();
+            return RedirectToAction("AdminProductList");
+        }
+
+        [Authorize(Roles = "Admin")]
+        public IActionResult AdminProductList()
+        {
+            var products = _repo.Products.ToList();
+
+            return View(products);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public IActionResult EditProd(int id)
+        {
+            var recordToEdit = _repo.Products
+                .Single(x => x.product_ID == id);
+            return View("AdminAddProduct", recordToEdit);
+        }
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public IActionResult EditProd(Product prod)
+        {
+            _repo.Update(prod);
+            _repo.SaveChanges();
+
+            return RedirectToAction("AdminProductList");
+        }
+
+        [HttpGet]
+        public IActionResult DeleteProd(int id)
+        {
+            var recordToDelete = _repo.Products
+                .Single(x => x.product_ID == id);
+            return View(recordToDelete);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteProd(Product prod)
+        {
+            //var product = await _repo.Products.FirstOrDefaultAsync(p => p.product_ID == id);
+            var product = prod;
+
+            _repo.Remove(product); // Correctly removes the product from the repository
+            _repo.SaveChanges();
+
+            return RedirectToAction("AdminProductList"); // Assuming you have a ProductList action
+        }
+
         [HttpGet]
         public IActionResult CustProductList(int pageNum, string? searchParam)
         {
@@ -95,46 +166,6 @@ namespace Intextwo.Controllers
         public IActionResult Sorry()
         {
             return View();
-        }
-
-
-        [Authorize]
-        public IActionResult AdminViewProducts(int pageNum, string? searchParam) {
-            if (pageNum == 0) { pageNum = 1; }
-            var pageSize = 6;// this is the page size
-
-            var productQuery = _repo.Products
-            .Where(x => searchParam == null || EF.Functions.Like(x.name, $"%{searchParam}%")); //executes part of the query
-
-
-            var viewModel = new ProductListViewModel()
-            {
-
-                // this statement pulls in the product data, sets the number for this page, and will also query for a specific
-                //string if you pass one in with a search bar. 
-                Products = productQuery
-                .OrderBy(x => x.name)
-                .Skip((pageNum - 1) * pageSize)
-                .Take(pageSize),
-                PaginationInfo = new PaginationInfo()
-                {
-                    CurrentPage = pageNum,
-                    ItemsPerPage = pageSize,
-                    TotalItems = productQuery.Count()
-
-                }
-            };
-            return View(viewModel);
-        }
-        
-        
-        
-        [HttpGet]
-        public IActionResult ViewProduct(int id)
-        {
-            var recordToSee = _repo.Products
-                .Single(x => x.product_ID == id);
-            return View(recordToSee);
         }
 
 

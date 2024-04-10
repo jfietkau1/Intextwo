@@ -1,0 +1,44 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@using Intextwo.Infrastructure
+@model ProductListViewModel
+
+
+
+
+
+
+<br />
+<div class="row">
+    @foreach (var x in Model.Products)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <a asp-controller="Home" asp-action="ViewProduct" asp-route-id="@x.product_ID" class="card-link">
+                    <img src="@x.img_link" class="card-img-top" alt="Product Image">
+                    <div class="card-body">
+                        <h5 class="card-title">@x.name</h5>
+                        <p class="card-text">Year: @x.year</p>
+                        <p class="card-text">Number of Parts: @x.num_parts</p>
+                        <p class="card-text">Price: @x.price</p>
+                        <p class="card-text">Primary Color: @x.primary_color</p>
+                        <p class="card-text">Secondary Color: @x.secondary_color</p>
+                        <p class="card-text">Category: @x.category</p>
+                    </div>
+
+                </a>
+                <form method="post" asp-page="/Cart">
+                    <input type="hidden" name="productid" value="@x.product_ID" />
+                    <input type="hidden" name="returnUrl" value="@Context.Request.PathAndQuery()" />
+                    <button type="submit" class="btn-success">+ Add to cart</button>
+
+                </form>
+
+            </div>
+        </div>
+    }
+</div>
+<div page-model="@Model.PaginationInfo" page-action="CustProductList" page-class-enabled="true" page-class="btn" page-class-normal="btn-outline-dark" page-class-selected="btn-primary" class="btn-group pull-right m-1"></div>

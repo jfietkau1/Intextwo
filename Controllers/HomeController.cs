@@ -8,6 +8,7 @@ using System.Linq;
 using Microsoft.ML.OnnxRuntime;
 using Microsoft.ML.OnnxRuntime.Tensors;
 using Elfie.Serialization;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace Intextwo.Controllers
@@ -91,7 +92,43 @@ namespace Intextwo.Controllers
 
             return View(viewModel);
         }
+        public IActionResult Sorry()
+        {
+            return View();
+        }
 
+
+        [Authorize]
+        public IActionResult AdminViewProducts(int pageNum, string? searchParam) {
+            if (pageNum == 0) { pageNum = 1; }
+            var pageSize = 6;// this is the page size
+
+            var productQuery = _repo.Products
+            .Where(x => searchParam == null || EF.Functions.Like(x.name, $"%{searchParam}%")); //executes part of the query
+
+
+            var viewModel = new ProductListViewModel()
+            {
+
+                // this statement pulls in the product data, sets the number for this page, and will also query for a specific
+                //string if you pass one in with a search bar. 
+                Products = productQuery
+                .OrderBy(x => x.name)
+                .Skip((pageNum - 1) * pageSize)
+                .Take(pageSize),
+                PaginationInfo = new PaginationInfo()
+                {
+                    CurrentPage = pageNum,
+                    ItemsPerPage = pageSize,
+                    TotalItems = productQuery.Count()
+
+                }
+            };
+            return View(viewModel);
+        }
+        
+        
+        
         [HttpGet]
         public IActionResult ViewProduct(int id)
         {

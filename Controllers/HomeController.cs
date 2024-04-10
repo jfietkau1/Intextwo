@@ -92,6 +92,16 @@ namespace Intextwo.Controllers
             return View(viewModel);
         }
 
+        [HttpGet]
+        public IActionResult ViewProduct(int id)
+        {
+            var recordToSee = _repo.Products
+                .Single(x => x.product_ID == id);
+            return View(recordToSee);
+        }
+
+
+
         public IActionResult AboutUs()
         {
             return View();

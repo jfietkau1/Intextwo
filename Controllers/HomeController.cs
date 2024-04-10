@@ -63,12 +63,14 @@ namespace Intextwo.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult AdminAddProduct()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public IActionResult AdminAddProduct(Product product)
         {
             _repo.Add(product);
@@ -76,6 +78,7 @@ namespace Intextwo.Controllers
             return RedirectToAction("AdminProductList");
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult AdminProductList()
         {
             var products = _repo.Products.ToList();
@@ -84,6 +87,7 @@ namespace Intextwo.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult EditProd(int id)
         {
             var recordToEdit = _repo.Products
@@ -91,6 +95,7 @@ namespace Intextwo.Controllers
             return View("AdminAddProduct", recordToEdit);
         }
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public IActionResult EditProd(Product prod)
         {
             _repo.Update(prod);
@@ -155,37 +160,7 @@ namespace Intextwo.Controllers
         }
 
 
-        [Authorize(Roles = "Admin")]
-        public IActionResult AdminViewProducts(int pageNum, string? searchParam) {
-            if (pageNum == 0) { pageNum = 1; }
-            var pageSize = 6;// this is the page size
-
-            var productQuery = _repo.Products
-            .Where(x => searchParam == null || EF.Functions.Like(x.name, $"%{searchParam}%")); //executes part of the query
-
-
-            var viewModel = new ProductListViewModel()
-            {
-
-                // this statement pulls in the product data, sets the number for this page, and will also query for a specific
-                //string if you pass one in with a search bar. 
-                Products = productQuery
-                .OrderBy(x => x.name)
-                .Skip((pageNum - 1) * pageSize)
-                .Take(pageSize),
-                PaginationInfo = new PaginationInfo()
-                {
-                    CurrentPage = pageNum,
-                    ItemsPerPage = pageSize,
-                    TotalItems = productQuery.Count()
-
-                }
-            };
-            return View(viewModel);
-        }
-        
-        
-        
+      
         [HttpGet]
         public IActionResult ViewProduct(int id)
         {

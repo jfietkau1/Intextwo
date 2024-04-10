@@ -164,13 +164,15 @@ body {
     height: 130px;
     display: flex;
     justify-content: center;
-    text-align: center
+    text-align: center;
+    margin-top: 25px;
 }
 
 .green-border {
     border-style: solid;
     border-color: #008E3C;
     border-width: 10px;
+    margin-bottom: 100px
 }
 
 .center {

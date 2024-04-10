@@ -3,56 +3,69 @@
 }
 @model IEnumerable<Intextwo.Models.ViewModels.OrderViewModel>
 
+<div class="green-brick text-white border border-danger">
+    <h2 class="center">
+        WELCOME
+    </h2>
+</div>
 
-<table>
-    <thead>
-        <tr>
-            <th>Transaction ID</th>
-            <th>Date</th>
-            <th>Day of Week</th>
-            <th>Time</th>
-            <th>Entry Mode</th>
-            <th>Amount</th>
-            <th>Type of Transaction</th>
-            <th>Shipping Address</th>
-            <th>Bank</th>
-            <th>Type of Card</th>
-            <th>Fraud?</th>
-            <th>Customer ID</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Birth Date</th>
-            <th>Country of Residence</th>
-            <th>Gender</th>
-            <th>Age</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.transaction_ID</td>
-                <td>@item.date?.ToString("yyyy-MM-dd")</td>
-                <td>@item.day_of_week</td>
-                <td>@item.time</td>
-                <td>@item.entry_mode</td>
-                <td>@item.amount</td>
-                <td>@item.type_of_transaction</td>
-                <td>@item.shipping_address</td>
-                <td>@item.bank</td>
-                <td>@item.type_of_card</td>
-                <td>@item.fraud</td>
-                <td>@item.customer_ID</td>
-                <td>@item.first_name</td>
-                <td>@item.last_name</td>
-                <td>@item.birth_date?.ToString("yyyy-MM-dd")</td>
-                <td>@item.country_of_residence</td>
-                <td>@item.gender</td>
-                <td>@item.age</td>
-            </tr>
-        }
+<div class="row">
+    <div class="w-100"></div>
+    <div class="bg-white col green-border rounded-3 shadow">
+        <div class="container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Transaction ID</th>
+                        <th>Date</th>
+                        <th>Day of Week</th>
+                        <th>Time</th>
+                        <th>Entry Mode</th>
+                        <th>Amount</th>
+                        <th>Type of Transaction</th>
+                        <th>Shipping Address</th>
+                        <th>Bank</th>
+                        <th>Type of Card</th>
+                        <th>Fraud?</th>
+                        <th>Customer ID</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Birth Date</th>
+                        <th>Country of Residence</th>
+                        <th>Gender</th>
+                        <th>Age</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.transaction_ID</td>
+                            <td>@item.date?.ToString("yyyy-MM-dd")</td>
+                            <td>@item.day_of_week</td>
+                            <td>@item.time</td>
+                            <td>@item.entry_mode</td>
+                            <td>@item.amount</td>
+                            <td>@item.type_of_transaction</td>
+                            <td>@item.shipping_address</td>
+                            <td>@item.bank</td>
+                            <td>@item.type_of_card</td>
+                            <td>@item.fraud</td>
+                            <td>@item.customer_ID</td>
+                            <td>@item.first_name</td>
+                            <td>@item.last_name</td>
+                            <td>@item.birth_date?.ToString("yyyy-MM-dd")</td>
+                            <td>@item.country_of_residence</td>
+                            <td>@item.gender</td>
+                            <td>@item.age</td>
+                        </tr>
+                    }
 
-        <Br />
-        <a asp-controller="Home" asp-action="CustProductList" asp-route-pageNum="1">Product List</a>
-    </tbody>
-</table>
+                    <Br />
+                    <a asp-controller="Home" asp-action="CustProductList" asp-route-pageNum="1">Product List</a>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

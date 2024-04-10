@@ -41,7 +41,7 @@
     <header class="header shadow rounded-pill">
         <div class="container">
             <div class="row">
-                <div class="col">
+                <div class="col-2">
                     <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
                         <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/3d3660e87ecaac15cafa9cb42798721e4047a1e0efee2935dcdbb5861cfde1cf?apiKey=9a246791027840cdbefebef3c3499f5e&" alt="Logo" class="logo" />
                     </a>
@@ -60,9 +60,28 @@
                     </div>
                 </div>
 
+                <div class="col absolute-center">
+                    <div class="absolute-center">
+                        <a asp-controller="Home" asp-action="CustProductList" asp-route-pageNum="1" class="privacy-link link-warning">
+                        <span class="text-center">
+                            PRODUCTS
+                        </span>
+                    </a>
+                </div>
+
+
+                    <div class="col absolute-center">
+                        <div class="absolute-center">
+                            <a asp-controller="Home" asp-action="AboutUs" class="about-link link-warning">
+                                <span class="text-center">
+                                    ABOUT US
+                                </span>
+                            </a>
+                        </div>
+                    </div>
 
                 <div class="col absolute-center">
-                    <div>
+                        <div class="absolute-center">
                         <a asp-controller="Home" asp-action="Privacy" class="privacy-link link-warning">
                             <span class="text-center">
                                 PRIVACY
@@ -71,17 +90,7 @@
                     </div>
                 </div>
 
-                <div class="col absolute-center">
-                    <div>
-                        <a asp-controller="Home" asp-action="AboutUs" class="about-link link-warning">
-                            <span class="text-center">
-                                ABOUT US
-                            </span>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="col absolute-center">
+                <div class="col-3 absolute-center m-2">
                     <div class="dropdown bg-white text-black rounded-pill absolute-center " style="width: 180px; height: 60px;">
                         <span class="user dropdown-toggle absolute-center" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/f8ab62d924c6094f9165b021364093b1b28ccf35077e6e53b4c0baa0c555efd8?apiKey=9a246791027840cdbefebef3c3499f5e&" alt="Logo" class="m-1" style="width: 50px; height: 40px;">
@@ -93,6 +102,7 @@
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     </header>
 

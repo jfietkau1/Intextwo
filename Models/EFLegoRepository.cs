@@ -14,7 +14,7 @@ namespace Intextwo.Models
         public IQueryable<Order> Orders => _context.orders;
         public IQueryable<Product> Products => _context.products;
         public IQueryable<lineItem> LineItems => _context.lineItems;
-        public IQueryable<User> users => _context.users;
+        public IQueryable<ApplicationUser> AspNetUsers => _context.AspNetUsers;
 
 
 

@@ -45,15 +45,15 @@ namespace Intextwo.Controllers
         [Authorize(Roles = "Admin")]
         public IActionResult AdminUserEdit()
         {
-            var users = _repo.users;
+            var users = _repo.AspNetUsers;
             return View("AdminUserEdit", users);
         }
         [HttpGet]
         [Authorize(Roles = "Admin")]
         public IActionResult DeleteUser(int id)
         {
-            var recordToDelete = _repo.users
-                .Single(x => x.user_ID == id);
+            var recordToDelete = _repo.AspNetUsers
+                .Single(x => x.Id == id);
             return View(recordToDelete);
         }
 

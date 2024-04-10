@@ -1,6 +1,7 @@
 using Intextwo.Data;
 using Intextwo.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Build.Experimental;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -25,6 +26,11 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<ILegoRepository, EFLegoRepository>();
 
+builder.Services.AddRazorPages();
+
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -41,6 +47,8 @@ else
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
+app.UseSession(); 
 
 app.UseRouting();
 app.UseAuthentication();

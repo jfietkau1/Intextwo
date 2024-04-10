@@ -89,16 +89,6 @@ namespace Intextwo.Controllers
 
 
 
-
-
-
-
-
-
-
-
-
-
         public IActionResult Privacy()
         {
             return View();

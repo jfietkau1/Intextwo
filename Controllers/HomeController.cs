@@ -62,6 +62,9 @@ namespace Intextwo.Controllers
             return View(viewModelList);
         }
 
+
+
+
         [Authorize (Roles = "Admin")]
         public IActionResult AdminMenu()
         {
@@ -163,16 +166,6 @@ namespace Intextwo.Controllers
         public IActionResult Sorry()
         {
             return View();
-        }
-
-
-      
-        [HttpGet]
-        public IActionResult ViewProduct(int id)
-        {
-            var recordToSee = _repo.Products
-                .Single(x => x.product_ID == id);
-            return View(recordToSee);
         }
 
 

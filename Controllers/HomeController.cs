@@ -48,6 +48,14 @@ namespace Intextwo.Controllers
             var users = _repo.users;
             return View("AdminUserEdit", users);
         }
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public IActionResult DeleteUser(int id)
+        {
+            var recordToDelete = _repo.users
+                .Single(x => x.user_ID == id);
+            return View(recordToDelete);
+        }
 
         [HttpGet]
         [Authorize(Roles = "Admin")]

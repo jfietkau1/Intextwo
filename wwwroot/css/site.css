@@ -1,22 +1,193 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
+// <uniquifier > : Use a unique and descriptive class name
+// <weight > : Use a value from 300 to 700
+
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    background-image: url('https://cdn.builder.io/api/v1/image/assets/TEMP/c62a513b7448bbf120ca9d535aea69301ca36f3fa03f4862677bfe7f22a664f9?apiKey=9a246791027840cdbefebef3c3499f5e&');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-family: "Outfit", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
 }
+
+.item-box {
+    background-image: url('https://cdn.builder.io/api/v1/image/assets/TEMP/416027b2bd405e20a5df77bf4bf140ca51889d9f971ce13d69187e5ad05a3218?')
+}
+
+
+.forum-template {
+}
+
+.header-search {
+    /* Remove absolute positioning */
+    /* position: absolute; */
+    /* Adjust top and left positions if needed */
+    /* top: 10px; */
+    /* left: 10px; */
+    /* Remove z-index */
+    /* z-index: 2; */
+    /* Ensure the search box appears in front */
+}
+
+.header-image {
+    /* Adjust positioning if needed */
+    /* position: absolute; */
+    /* top: 0; */
+    /* left: 0; */
+    /* width: 100%; */
+    /* Make the image cover the entire header */
+    /* z-index: 1; */
+}
+
+.logo {
+    /* Adjust positioning if needed */
+    /* position: absolute; */
+    /* top: 0; */
+    /* left: 0; */
+    width: 90px;
+    */
+    /* max-width: 100%; */
+    /* aspect-ratio: 1; */
+    /* object-fit: contain; */
+    /* object-position: center; */
+    /* align-self: start; */
+    /* Add margin-right to create space between logo and search bar */
+    margin-right: 10px;
+}
+
+
+.header-bg {
+    display: block;
+    width: 30%;
+    height: auto;
+}
+
+.header {
+    background-color: #da291c;
+    color: #fff;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    top: 0;
+}
+
+.header-links {
+    display: flex; /* Make links display in a row */
+    justify-content: flex-end; /* Align links to the right */
+    flex: 1; /* Allow header links to take up remaining space */
+}
+
+
+.privacy-link,
+.about-link {
+    text-align: center;
+    font-family: Lexend Tera, sans-serif;
+    text-decoration: none; /* Updated */
+    color: #fff; /* Set text color to white */
+    margin-left: 30px;
+}
+
+.user {
+    width: 90px;
+    padding: 20px;
+}
+
+.footer {
+    background-color: #da291c;
+    color: #fff;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.search-bar {
+    background-image: url('https://cdn.builder.io/api/v1/image/assets/TEMP/21cfa5120db7a4366def7b1855ef1eb4b263aaabd4313ff49f2a55b64d8d200a?apiKey=9a246791027840cdbefebef3c3499f5e&');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    height: 100px;
+    width: 500px;
+    /*    background-attachment: fixed;*/
+}
+
+.blue-brick {
+    background-image: url('../lib/img/blue_lego.png');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    width: 500px;
+    height: 130px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin-top: 25px;
+}
+
+.blue-border {
+    border-style: solid;
+    border-color: #0055BF;
+    border-width: 10px;
+    margin-bottom: 100px
+}
+
+.absolute-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.green-brick {
+    background-image: url('../lib/img/green_lego.png');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    width: 500px;
+    height: 130px;
+    display: flex;
+    justify-content: center;
+    text-align: center
+}
+
+.green-border {
+    border-style: solid;
+    border-color: #008E3C;
+    border-width: 10px;
+}
+
+.center {
+    padding: 70px 0;
+}
+
+.sticky {
+    position: sticky;
+    top: auto;
+}
+
+/*.background-image {
+    position: absolute;
+    inset: 0;
+    width: 110%;
+    height: 110%;
+    object-fit: cover;
+    object-position: center;
+}
+*/

@@ -1,7 +1,7 @@
-using brickit.Models;
 using Intextwo.Models;
 using Intextwo.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using NuGet.Protocol.Core.Types;
 using System.Diagnostics;
 using System.Linq;
@@ -50,10 +50,54 @@ namespace Intextwo.Controllers
                         gender = customer.gender,
                         age = customer.age
                     }
-                ).Take(5).ToList();
+                ).Take(1).ToList();
 
             return View(viewModelList);
         }
+
+        [HttpGet]
+        public IActionResult CustProductList(int pageNum, string? searchParam)
+        {
+
+            var pageSize = 6;// this is the page size
+
+            var productQuery = _repo.Products
+            .Where(x => searchParam == null || EF.Functions.Like(x.name, $"%{searchParam}%")); //executes part of the query
+
+
+            var viewModel = new ProductListViewModel()
+            {
+
+                // this statement pulls in the product data, sets the number for this page, and will also query for a specific
+                //string if you pass one in with a search bar. 
+                Products = productQuery
+                .OrderBy(x => x.name)
+                .Skip((pageNum - 1) * pageSize)
+                .Take(pageSize),
+                PaginationInfo = new PaginationInfo() 
+                {
+                CurrentPage = pageNum,
+                ItemsPerPage = pageSize,
+                TotalItems = productQuery.Count()
+
+                }
+            };
+
+            return View(viewModel);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         public IActionResult Privacy()
         {

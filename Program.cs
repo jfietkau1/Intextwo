@@ -1,5 +1,5 @@
-using brickit.Models;
 using Intextwo.Data;
+using Intextwo.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -46,9 +46,12 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
+
+//app.MapControllerRoute("pagination", "CustProductList/{pageNum}", new {controller = "Home", action = "Index"});
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
 app.MapRazorPages();
 
 app.Run();

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace brickit.Models
+namespace Intextwo.Models
 {
     public class LegoDbContext: DbContext
     {

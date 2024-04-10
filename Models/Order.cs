@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 
 
-namespace brickit.Models
+namespace Intextwo.Models
 {
     public class Order
     {

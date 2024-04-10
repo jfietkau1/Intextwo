@@ -1,4 +1,4 @@
-﻿namespace brickit.Models
+﻿namespace Intextwo.Models
 {
     public interface ILegoRepository
     {

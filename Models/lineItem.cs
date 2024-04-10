@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace brickit.Models
+namespace Intextwo.Models
 {
     public class lineItem
     {

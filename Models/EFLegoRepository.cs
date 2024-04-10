@@ -1,5 +1,5 @@
 ﻿
-namespace brickit.Models
+namespace Intextwo.Models
 {
     public class EFLegoRepository: ILegoRepository
     {

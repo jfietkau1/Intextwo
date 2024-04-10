@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 
-namespace brickit.Models
+namespace Intextwo.Models
 {
     public class Customer
     {

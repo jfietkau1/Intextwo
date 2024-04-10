@@ -7,7 +7,7 @@ namespace Intextwo.Models
         public List<CartLine> Lines { get; set; } = new List<CartLine>();
 
 
-        public void AddItem(Product prod, int quantity)
+        public virtual void AddItem(Product prod, int quantity)
         {
             CartLine? line = Lines.
                 Where(x => x.Product.product_ID == prod.product_ID)
@@ -27,9 +27,9 @@ namespace Intextwo.Models
             }
         }
 
-        public void RemoveLine(Product prod) => Lines.RemoveAll(x => x.Product.product_ID== prod.product_ID);
+        public virtual void RemoveLine(Product prod) => Lines.RemoveAll(x => x.Product.product_ID== prod.product_ID);
 
-        public void Clear() => Lines.Clear();
+        public virtual void Clear() => Lines.Clear();
 
         public decimal CalculateTotal() => (decimal)(Lines.Sum(x => x.Product.price * x.Quantity));
 

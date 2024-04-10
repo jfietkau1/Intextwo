@@ -27,9 +27,11 @@
                 <td>@x.description</td>
                 <td>@x.category</td>
 
-                <td><a class="btn" asp-controller="Home" asp-action="EditProd" asp-route-id="@x.product_ID">Edit</a></td>
-                <td><a class="btn" asp-controller="Home" asp-action="DeleteProd" asp-route-id="@x.product_ID">Delete</a></td>
+                <td><a class="btn btn-primary" asp-controller="Home" asp-action="EditProd" asp-route-id="@x.product_ID">Edit</a></td>
+                <td><a class="btn btn-alert" asp-controller="Home" asp-action="DeleteProd" asp-route-id="@x.product_ID">Delete</a></td>
             </tr>
         </tbody>
     }
 </table>
+
+<a class="btn btn-outline-primary" asp-controller="Home" asp-action="AdminAddProduct">+ Add Product</a>

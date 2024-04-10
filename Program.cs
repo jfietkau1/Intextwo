@@ -27,6 +27,11 @@ builder.Services.AddDbContext<LegoDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
+
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<ApplicationDbContext>();
+
 builder.Services.Configure<IdentityOptions>(options =>
 {
     // Password settings.
@@ -36,10 +41,17 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Password.RequireUppercase = true;
     options.Password.RequiredLength = 12; // Passwords must have at least 12 characters
     options.Password.RequiredUniqueChars = 1;
+
+    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+    options.Lockout.MaxFailedAccessAttempts = 7;
+    options.Lockout.AllowedForNewUsers = true;
+
+    options.User.RequireUniqueEmail = true;
+
 });
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+
+
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<ILegoRepository, EFLegoRepository>();
@@ -84,4 +96,77 @@ app.MapControllerRoute(
 
 app.MapRazorPages();
 
+
+using (var scope = app.Services.CreateScope())
+{
+    var serviceProvider = scope.ServiceProvider;
+    var userManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
+    var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+    await SeedRolesAsync(userManager, roleManager);
+    await SeedAdminUserAsync(userManager, roleManager); 
+
+}
+
+async Task SeedRolesAsync(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
+{
+    if (!await roleManager.RoleExistsAsync("Admin"))
+    {
+        var adminRole = new IdentityRole("Admin");
+        await roleManager.CreateAsync(adminRole);
+    }
+    if (!await roleManager.RoleExistsAsync("User"))
+    {
+        var userRole = new IdentityRole("User");
+        await roleManager.CreateAsync(userRole);
+    }
+}
+
+
+
+async Task SeedAdminUserAsync(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
+{
+    string adminEmail = "admin@example.com"; // Use a secure way to store and retrieve this
+    string adminPassword = "SecurePassword123!"; // Use a secure way to store and retrieve this
+
+    var adminUser = await userManager.FindByEmailAsync(adminEmail);
+    if (adminUser == null)
+    {
+        adminUser = new IdentityUser
+        {
+            UserName = adminEmail,
+            Email = adminEmail,
+            EmailConfirmed = true // Confirm email to bypass email verification
+        };
+
+        var createUserResult = await userManager.CreateAsync(adminUser, adminPassword);
+        if (createUserResult.Succeeded)
+        {
+            // Check if the admin role exists
+            if (!await roleManager.RoleExistsAsync("Admin"))
+            {
+                var adminRole = new IdentityRole("Admin");
+                await roleManager.CreateAsync(adminRole);
+            }
+
+            // Add the admin user to the admin role
+            var addToRoleResult = await userManager.AddToRoleAsync(adminUser, "Admin");
+            if (!addToRoleResult.Succeeded)
+            {
+                // Handle the case where the admin user could not be added to the admin role
+                throw new InvalidOperationException("Failed to add user to Admin role.");
+            }
+        }
+        else
+        {
+            // Handle the case where the admin user could not be created
+            throw new InvalidOperationException("Failed to create the Admin user.");
+        }
+    }
+}
+
+
+
+
 app.Run();
+
+

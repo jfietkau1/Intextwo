@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Linq;
 using Microsoft.ML.OnnxRuntime;
 using Microsoft.ML.OnnxRuntime.Tensors;
+using Elfie.Serialization;
 
 
 namespace Intextwo.Controllers
@@ -19,7 +20,7 @@ namespace Intextwo.Controllers
         public HomeController( ILegoRepository temp)
         {
             _repo = temp;
-            _session = new InferenceSession("C:\\Users\\kateh\\Source\\Repos\\Intextwo\\fraud_pred (2).onnx");
+            _session = new InferenceSession("wwwroot/fraud_pred.onnx");
 
         }
 

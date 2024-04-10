@@ -155,7 +155,7 @@ namespace Intextwo.Controllers
         }
 
 
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public IActionResult AdminViewProducts(int pageNum, string? searchParam) {
             if (pageNum == 0) { pageNum = 1; }
             var pageSize = 6;// this is the page size

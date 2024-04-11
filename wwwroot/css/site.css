@@ -21,8 +21,7 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    font-family: "Outfit", sans-serif;
-    font-optical-sizing: auto;
+    font-family: "Space Mono", monospace;
     font-weight: 400;
     font-style: normal;
 }
@@ -31,6 +30,23 @@ body {
     background-image: url('https://cdn.builder.io/api/v1/image/assets/TEMP/416027b2bd405e20a5df77bf4bf140ca51889d9f971ce13d69187e5ad05a3218?')
 }
 
+.space-mono-bold {
+    font-family: "Space Mono", monospace;
+    font-weight: 700;
+    font-style: normal;
+}
+
+.space-mono-regular-italic {
+    font-family: "Space Mono", monospace;
+    font-weight: 400;
+    font-style: italic;
+}
+
+.space-mono-bold-italic {
+    font-family: "Space Mono", monospace;
+    font-weight: 700;
+    font-style: italic;
+}
 
 .forum-template {
 }
@@ -180,6 +196,10 @@ body {
     border-color: #008E3C;
     border-width: 10px;
     margin-bottom: 100px
+}
+
+.green-border-nopad{
+
 }
 
 .center {

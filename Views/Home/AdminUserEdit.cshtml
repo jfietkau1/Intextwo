@@ -30,8 +30,12 @@
                 <td>@u.TwoFactorEnabled</td>
                 <td>
                     <!-- Add buttons for actions (Edit/Remove) -->
-                <td><a class="btn btn-primary" asp-controller="Home" asp-action="EditUser" asp-route-id="@u.UserName">Edit</a></td>
-                <td><a class="btn btn-alert" asp-controller="Home" asp-action="DeleteUser" asp-route-id="@u.UserName">Delete</a></td>
+                <td><a class="btn btn-primary" asp-controller="Home" asp-action="EditUser" asp-route-id="@u.Id">Edit</a></td>
+                <td>
+                    <form method="post">
+                         <button type="submit" class="btn btn-alert" asp-controller="Home" asp-action="DeleteUser" asp-route-id="@u.Id">Delete</button>
+                    </form>
+                </td>
             </tr>
         }
     </tbody>

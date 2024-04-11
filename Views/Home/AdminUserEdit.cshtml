@@ -6,6 +6,17 @@
 
 @model IQueryable<ApplicationUser>
 
+<script>
+    function confirmDelete(userId) {
+        if (confirm("Are you sure you want to delete this user?")) {
+            // Set the userId in the hidden input field
+            document.getElementById("userIdToDelete").value = userId;
+            // Submit the form to delete the user
+            document.getElementById("deleteForm").Submit();
+        }
+    }
+</script>
+
 <h1>User Management</h1>
 <form action="/Identity/Account/Register" method="get">
     <button type="submit" class="btn btn-primary">Register</button>
@@ -30,8 +41,13 @@
                 <td>@u.TwoFactorEnabled</td>
                 <td>
                     <!-- Add buttons for actions (Edit/Remove) -->
-                <td><a class="btn btn-primary" asp-controller="Home" asp-action="EditUser" asp-route-id="@u.UserName">Edit</a></td>
-                <td><a class="btn btn-alert" asp-controller="Home" asp-action="DeleteUser" asp-route-id="@u.UserName">Delete</a></td>
+                <td><a class="btn btn-primary" asp-controller="Home" asp-action="EditUser" asp-route-id="@u.Id">Edit</a></td>
+                <td>
+                    <form id="deleteForm" method="post" asp-controller="Home" asp-action="DeleteUser">
+                         <input type="hidden" name="id" id="userIdToDelete" value="@u.Id" />
+                        <button type="submit" class="btn btn-alert" asp-controller="Home" asp-action="DeleteUser" onclick="confirmDelete('@u.Id')">Delete</button>
+                    </form>
+                </td>
             </tr>
         }
     </tbody>

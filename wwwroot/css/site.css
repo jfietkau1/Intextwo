@@ -226,14 +226,6 @@ a.cart-box {
     text-decoration: none;
 }
 
-.hr {
-    margin: 1rem 0;
-    color: inherit;
-    background-color: currentColor;
-    border: 0;
-    opacity: 0.25;
-}
-
 hr {
     display: block;
     height: 1px;
@@ -241,6 +233,11 @@ hr {
     border-top: 1px solid #000;
     margin: 1em 0;
     padding: 0;
+}
+
+.small-button {
+    height: 50px;
+    width: 50px
 }
 /*.background-image {
     position: absolute;

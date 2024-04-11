@@ -10,6 +10,8 @@ using Microsoft.ML.OnnxRuntime.Tensors;
 using Elfie.Serialization;
 using Microsoft.AspNetCore.Authorization;
 using System.Drawing.Printing;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.SignalR;
 
 
 namespace Intextwo.Controllers
@@ -18,16 +20,73 @@ namespace Intextwo.Controllers
     {
         private readonly ILegoRepository _repo;
         private readonly InferenceSession _session; // ONNX Runtime InferenceSession
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public HomeController( ILegoRepository temp)
+        public HomeController( ILegoRepository temp, UserManager<IdentityUser> userManager)
         {
             _repo = temp;
             _session = new InferenceSession("wwwroot/fraud_pred.onnx");
+            _userManager = userManager;
 
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            IdentityUser user = await _userManager.GetUserAsync(User);
+            List<Product> viewproducts = new List<Product>();
+            // Id in User table is a string that looks like owiu498w3tu0w3
+            // customer_ID in customer table is int that looks like this: 30002
+            //linking table UserCustomer has shared values
+            if (user != null)
+            {
+                var userCustomer = _repo.UserCustomers.FirstOrDefault(x => x.Id == user.Id);
+                if (userCustomer != null)
+                {
+                    var order = _repo.Orders.FirstOrDefault(x => x.customer_ID == userCustomer.customer_ID);
+                    if (order != null)
+                    {
+                        var lineItem = _repo.LineItems.FirstOrDefault(x => x.transaction_ID == order.transaction_ID);
+                        if (lineItem != null)
+                        {
+                            Product product = _repo.Products.FirstOrDefault(x => x.product_ID == lineItem.product_ID);
+                            if (product != null)
+                            {
+                                // You can use 'product' here as it's successfully retrieved.
+                                //this means they've made a purchase and there's an associated entry in the orders table
+                                List<string> recProds = new List<string>();
+
+                                var recentPurchase = _repo.recs.Where(x => x.name == product.name).FirstOrDefault();
+                 
+                                
+                                recProds.Append(recentPurchase.Recommendation1);
+                                recProds.Append(recentPurchase.Recommendation2);
+                                recProds.Append(recentPurchase.Recommendation3);
+                                recProds.Append(recentPurchase.Recommendation4);
+                                recProds.Append(recentPurchase.Recommendation5);
+                                
+
+
+                                foreach (var recommendation in recProds)
+                                {
+                                    Product prod1 = _repo.Products.FirstOrDefault(x => x.name == recommendation);
+                                    viewproducts.Append(prod1);
+                                }
+                                return View("UserRecommendationIndex", viewproducts);
+
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                //return regular index view with most recommended 
+                //this means that the customer hasn't made a purchase
+                return View("Index");
+            }
+
+
+
             return View();
         }
 

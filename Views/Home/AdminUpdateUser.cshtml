@@ -1,0 +1,36 @@
+﻿@model ApplicationUser
+
+<div class="row">
+    <div class="blue-brick text-white col col-1">
+        <h2 class="center">
+            @ViewData["Title"]
+        </h2>
+    </div>
+</div>
+<div class="w-100"></div>
+<div class="bg-white col blue-border rounded-3 shadow">
+    <div class="container">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Customer ID</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                    <tr>
+                        <td>@Model.Id</td>
+                        <td>@Model.UserName</td>
+                        <!--<td>u.role</td> ADD functionality where the admin can make the user an admin or nah-->
+                        <td>
+                            <button method="post" id="updateUser" asp-action="updateUser">Update User</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

@@ -1,0 +1,62 @@
+﻿@model ApplicationUser
+
+<div class="row">
+    <div class="blue-brick text-white col col-1">
+        <h2 class="center">
+            @ViewData["Title"]
+        </h2>
+    </div>
+</div>
+<div class="w-100"></div>
+<div class="bg-white col blue-border rounded-3 shadow">
+    <div class="container">
+        <form asp-action="AdminUpdateUser" method="post">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Customer ID</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <input type="hidden" asp-for="@Model.AccessFailedCount">
+                        <input type="hidden" asp-for="@Model.EmailConfirmed">
+                        <input type="hidden" asp-for="@Model.NormalizedUserName" />
+                        <input type="hidden" asp-for="@Model.NormalizedEmail" />
+                        <input type="hidden" asp-for="@Model.EmailConfirmed" />
+                        <input type="hidden" asp-for="@Model.PasswordHash" />
+                        <input type="hidden" asp-for="@Model.SecurityStamp" />
+                        <input type="hidden" asp-for="@Model.ConcurrencyStamp" />
+                        <input type="hidden" asp-for="@Model.PhoneNumber" />
+                        <input type="hidden" asp-for="@Model.PhoneNumberConfirmed" />
+                        <input type="hidden" asp-for="@Model.TwoFactorEnabled" />
+                        <input type="hidden" asp-for="@Model.LockoutEnd" />
+                        <input type="hidden" asp-for="@Model.LockoutEnabled" />
+                        <input type="hidden" asp-for="@Model.AccessFailedCount" />
+                        <input asp-for=@Model.Id value="@Model.Id"/>
+                    </td>
+                    <td>
+                        <input asp-for="@Model.UserName" value="@Model.UserName"/>
+                    </td>
+                    <td>
+                        <select id="role">
+                            <option value="Admin">Admin</option>
+                            <option value="User">User</option>
+                        </select>
+                    </td>
+                    <td>
+                            <button type="submit">Update User</button>
+                        
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        </form>
+    </div>
+</div>
+
+

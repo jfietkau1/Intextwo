@@ -23,6 +23,24 @@
             <p class="card-text">Category: @Model.Product.category</p>
         </div>
     </div>
+@*     <div>
+    <h5>Recommendations:</h5>
+    <div class="card-deck">
+
+        var recommendationProduct1 = _repo.Products.SingleOrDefault(p => p.name == Model.Recommendations.Recommendation1);
+            <div class="card">
+                <img src="@recommendationProduct1.img_link" class="card-img-top" alt="Recommendation 1 Image">
+                <div class="card-body">
+                    <h5 class="card-title">@Model.Recommendations.Recommendation1</h5>
+                    <p class="card-text">Year: @recommendationProduct1.year</p>
+                    <p class="card-text">Price: @recommendationProduct1.price</p>
+                    <!-- Add other relevant details -->
+             </div>
+     </div> EDIT THIS SOON*@
+
+
+
+
     <div>
         <h5>Recommendations:</h5>
         <ul>
@@ -33,6 +51,7 @@
             <li>@Model.Recommendations.Recommendation5</li>
         </ul>
     </div>
+
     <br />
     <form method="post" asp-page="/Cart">
         <input type="hidden" name="productid" value="@Model.Product.product_ID" />

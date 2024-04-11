@@ -9,6 +9,10 @@
         IQueryable<ApplicationUser> AspNetUsers { get; }
         IQueryable<UserCustomer> UserCustomers { get; }
 
+        IEnumerable<string> GetUniqueCategories();
+        IEnumerable<string> GetUniqueColors();
+
+
         IQueryable<Recommendation> recs { get; }
 
         void Add<T>(T entity) where T : class;

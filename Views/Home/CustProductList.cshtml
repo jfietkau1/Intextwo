@@ -12,47 +12,56 @@
     </h2>
 </div>
 
-<div class="row p-2 bg-white green-border shadow rounded-3">
-    <div class="row absolute-center justify-content-lg-start m-2">
-        View Layout:
-        <div class="rounded-3 btn small-button text-black btn-outline-success m-2 absolute-center" value="5">5</div>
-        <div class="rounded-3 btn small-button text-black btn-outline-success m-2 absolute-center" value="10">10</div>
-        <div class="rounded-3 btn small-button text-black btn-outline-success m-2 absolute-center" value="20">20</div>
+<div class="row p-2 bg-white green-border shadow rounded-3 absolute-center">
+    <div class="row absolute-center justify-content-between m-2">
+        <div class="col absolute-center">
+
+            View Layout:
+            <div class="rounded-3 btn small-button text-black btn-outline-success m-2 absolute-center" value="5">5</div>
+            <div class="rounded-3 btn small-button text-black btn-outline-success m-2 absolute-center" value="10">10</div>
+            <div class="rounded-3 btn small-button text-black btn-outline-success m-2 absolute-center" value="20">20</div>
+        </div>
+        <div class="col absolute-center">
+            Pages:
+            <div page-model="@Model.PaginationInfo" page-action="CustProductList" page-class-enabled="true" page-class="btn bg-danger " page-class-normal="btn-outline-light text-light" page-class-selected="btn bg-white text-black" class="btn-group pull-right m-3 rounded-3 border border-danger" style="width:auto;">Pages: </div>
+        </div>
     </div>
+
 
 
     @foreach (var x in Model.Products)
     {
-        <div class="col-md-4 mb-4">
-            <div class="card">
+        <div class="col-md-3 mb-4 m-2">
+            <div class="card m-2 item-border">
                 <a asp-controller="Home" asp-action="SeeProd" asp-route-id="@x.product_ID" class="card-link">
-                    <img src="@x.img_link" class="card-img-top" alt="Product Image">
-                    <div class="card-body">
-                        <h5 class="card-title">@x.name</h5>
-                        <p class="card-text">Year: @x.year</p>
-                        <p class="card-text">Number of Parts: @x.num_parts</p>
-                        <p class="card-text">Price: $@x.price</p>
-                        <p class="card-text">Primary Color: @x.primary_color</p>
-                        <p class="card-text">Secondary Color: @x.secondary_color</p>
-                        <p class="card-text">Category: @x.category</p>
+                    <img src="@x.img_link" class="card-img-top p-2 rounded-3" alt="Product Image">
+                    <div class="item-title rounded nav-item m-2">
+                        <h5 class="card-title p-4">@x.name</h5>
+                    </div>
+                </a>
+                    <div class="card-body text-md-start">
+                        <div class="p-2">
+                        <p class="card-text"><span class="rounded-3 m-2 p-2 bg-light">Year:</span> @x.year</p>
+                        <p class="card-text"> <span class="rounded-3 m-2 p-2 bg-light">Number of Parts:</span> @x.num_parts</p>
+                        <p class="card-text"> <span class="rounded-3 m-2 p-2 bg-light">Price:</span> $@x.price</p>
+                        <p class="card-text"><span class="rounded-3 m-2 p-2 bg-light">Primary Color:</span> @x.primary_color</p>
+                        <p class="card-text"><span class="rounded-3 m-2 p-2 bg-light">Secondary Color:</span> @x.secondary_color</p>
+                        <p class="card-text"><span class="rounded-3 m-2 p-2 bg-light">Category:</span> @x.category</p>
+                        </div>
                     </div>
 
-                </a>
-                <form method="post" asp-page="/Cart">
+
+                <form method="post" asp-page="/Cart" class="absolute-center">
                     <input type="hidden" name="productid" value="@x.product_ID" />
                     <input type="hidden" name="returnUrl" value="@Context.Request.PathAndQuery()" />
-                    <button type="submit" class="btn-success">+ Add to cart</button>
+                    <button type="submit" class="btn add-cart-button rounded-pill m-2 p-2" style="width: 1000px">+ Add to cart</button>
                     
                 </form>
 
             </div>
         </div>
     }
-    <div class="col-1">
-        <h3>Pages:</h3>
-        <hr />
-        <div page-model="@Model.PaginationInfo" page-action="CustProductList" page-class-enabled="true" page-class="btn bg-danger " page-class-normal="btn-outline-light text-light" page-class-selected="btn bg-white text-black" class="btn-group pull-right m-3 rounded-3 border border-danger ">Pages: </div>
-    </div>
+
 </div>
 
 

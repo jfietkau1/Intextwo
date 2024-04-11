@@ -51,14 +51,31 @@
 
                 <div class="col">
                     <div class="search-bar p-1 m-1 absolute-center">
-                        <form asp-action="CustProductList" method="get">
+                        <form asp-action="CustProductList" method="get" onsubmit="setHiddenInputValues(this)">
                             <div class="input-group">
-                                <input type="hidden" name="pageNum" value="1" /> <!-- Reset to page 1 on new search -->
-                                <input type="text" name="searchParam" placeholder="Search Lego Sets" />
-                                <button type="submit" class="btn btn-primary" data-mdb-ripple-init>Search</button>
+                                <input type="hidden" name="pageNum" value="1" />
+                                <input type="text" name="searchParam" placeholder="Search Products" />
+                                <input type="hidden" name="color" id="hiddenColor" />
+                                <input type="hidden" name="cat" id="hiddenCategory" />
+                                <input type="hidden" name="pageSizes" id="hiddenPageSize" />
+                                <button type="submit" class="btn btn-primary">Search</button>
                             </div>
                         </form>
+                        <script>
+                            function setHiddenInputValues(form) {
+                                // Retrieve the dropdown elements by their ID
+                                var colorDropdown = document.getElementById('colorDropdown');
+                                var categoryDropdown = document.getElementById('categoryDropdown');
+                                var pageSizeDropdown = document.getElementById('pageSizeElementId'); // Or whatever the ID is
 
+                                // Set the hidden input values based on the dropdown selections
+                                form['color'].value = colorDropdown ? colorDropdown.value : '';
+                                form['cat'].value = categoryDropdown ? categoryDropdown.value : '';
+                                form['pageSizes'].value = pageSizeDropdown ? pageSizeDropdown.value : '';
+
+                                // The form will proceed to submit after this function completes
+                            }
+                        </script>
                     </div>
                 </div>
 
@@ -98,8 +115,8 @@
                             <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/f8ab62d924c6094f9165b021364093b1b28ccf35077e6e53b4c0baa0c555efd8?apiKey=9a246791027840cdbefebef3c3499f5e&" alt="Logo" class="m-1" style="width: 50px; height: 40px;">
                             USER
                         </span>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <partial name="_LoginPartial" />
+                        <div class="dropdown-menu border-2 border-danger shawdow" aria-labelledby="dropdownMenuButton">
+                            <partial name="_LoginPartial" class="absolute-center"/>
                         </div>
                     </div>
                 </div>
@@ -116,9 +133,8 @@
     </div>
 
     <footer class="border-top footer text-muted">
-        <div class="container">
+        <div class="container absolute-center text-white">
             &copy; 2024 - Intextwo - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-            <a class="btn" asp-controller="Home" asp-action="AdminMenu">Admin Tools</a>
         </div>
     </footer>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -128,5 +144,8 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
+    
+
+
 </body>
 </html>

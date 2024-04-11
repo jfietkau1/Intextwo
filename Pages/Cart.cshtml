@@ -2,9 +2,11 @@
 @model Intextwo.Pages.CartModel
 @{
 }
-<h2>Your Cart</h2>
+<div class="green-brick-small text-white">
+</div>
 
-<table class="table table-borderd table-striped">
+
+<table class="table green-border table-striped p-2 shadow rounded-3">
     <thead>
         <tr>
             <th>Product</th>           
@@ -32,27 +34,31 @@
                 </td>
             </tr>
         }
+        <foot>
+            <tr class="table-total text-white">
+                <td colspan="3" class="text-right">Total</td>
+                <td class="text-right">@Model.Cart.CalculateTotal().ToString("c")</td>
+                <td></td>
+            </tr>
+        </foot>
     </tbody>
-    <foot>
-        <tr>
-            <td colspan="3" class="text-right">Total</td>
-            <td class="text-right">@Model.Cart.CalculateTotal().ToString("c")</td>
-        </tr>
-    </foot>
-
 </table>
 
-<div class="text-center">
-    <a class="btn btn-primary" href="@Model.ReturnUrl">Continue Shopping</a>
-    
-</div>
-<form method="post">
-    <div class="text-center">
-        <button type="submit" class="btn btn-primary" asp-page-handler="Checkout">
-            Proceed to Checkout
-        </button>
+<div class="row p-2 rounded-pill bg-light shadow-sm item-border">
+    <div class="col">
+        <div class="text-center ">
+            <a class="btn add-cart-button rounded-pill" href="@Model.ReturnUrl">Continue Shopping</a>
+        </div>
     </div>
-</form>
 
-
+    <div class="col">
+        <form method="post">
+            <div class="text-center">
+                <button type="submit" class="btn add-cart-button rounded-pill" asp-page-handler="Checkout">
+                    Proceed to Checkout
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
 

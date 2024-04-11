@@ -43,7 +43,25 @@ namespace Intextwo.Models
             base.Clear();
             Session?.Remove("cart");
         }
+        public (List<Product>, List<int>) GetCartProductsAndQuantities()
+        {
+            var products = new List<Product>();
+            var quantities = new List<int>();
 
+            // Get the current SessionCart object stored in session.
+            var cart = Session?.GetJson<SessionCart>("cart");
+
+            if (cart != null)
+            {
+                foreach (var line in cart.Lines)
+                {
+                    products.Add(line.Product);
+                    quantities.Add(line.Quantity);
+                }
+            }
+
+            return (products, quantities);
+        }
 
 
 

@@ -28,9 +28,6 @@ namespace Intextwo.Controllers
 
         public IActionResult Index()
         {
-
-            
-
             return View();
         }
 
@@ -218,8 +215,31 @@ namespace Intextwo.Controllers
             return View(viewModel);
         }
 
+        public IActionResult OrderConfirmation()
+        {
+            return View();
+        }
 
+        [HttpGet]
+        public IActionResult CompleteRegistration(int id)
+        {
+            ViewBag.customer_ID = id;
+            return View();
+        }
+        [HttpPost]
+        public IActionResult CompleteRegistration(Customer customer)
+        {
 
+            if (!ModelState.IsValid)
+            {
+                // The model is invalid, return the same form to show validation errors
+                return View(customer);
+            }
+            //logic to add items to the database when the form is submitted.
+            _repo.Add(customer);
+            _repo.SaveChanges();
+            return RedirectToPage("/Cart");
+        }
 
 
         public IActionResult AboutUs()

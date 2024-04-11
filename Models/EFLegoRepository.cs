@@ -15,7 +15,7 @@ namespace Intextwo.Models
         public IQueryable<Product> Products => _context.products;
         public IQueryable<lineItem> LineItems => _context.lineItems;
         public IQueryable<ApplicationUser> AspNetUsers => _context.AspNetUsers;
-
+        public IQueryable<UserCustomer> UserCustomers => _context.UserCustomer;
 
 
         public void Add<T>(T entity) where T : class

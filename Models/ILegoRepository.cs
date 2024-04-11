@@ -7,6 +7,7 @@
         IQueryable<Product> Products { get; }
         IQueryable<lineItem> LineItems { get; }
         IQueryable<ApplicationUser> AspNetUsers { get; }
+        IQueryable<UserCustomer> UserCustomers { get; }
 
 
         void Add<T>(T entity) where T : class;

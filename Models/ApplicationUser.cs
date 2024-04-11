@@ -3,7 +3,8 @@
 namespace Intextwo.Models
 {
     public class ApplicationUser : IdentityUser
-    {
+    {     
+
         public string? Id { get; set; }
         public string? UserName { get; set; }
         public string? NormalizedUserName { get; set; }
@@ -18,6 +19,7 @@ namespace Intextwo.Models
         public DateTimeOffset? LockoutEnd { get; set; }
         public bool? LockoutEnabled { get; set; }
         public int? AccessFailedCount { get; set; }
+
 
     }
 }

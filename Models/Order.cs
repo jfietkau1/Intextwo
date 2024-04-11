@@ -20,6 +20,7 @@ namespace Intextwo.Models
         public string? bank { get; set; }
         public string? type_of_card { get; set; }
         public bool? fraud { get; set; }
+        public string? country_of_transaction { get; set ; }
         
 
 

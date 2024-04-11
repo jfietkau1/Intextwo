@@ -1,0 +1,50 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model Customer
+
+<div>
+    <h2>Please Complete Your Registration</h2>
+    <div>
+        <form asp-method="post" asp-action="CompleteRegistration">
+            <input asp-for="customer_ID" type="hidden" value="@ViewBag.customer_ID" />
+            
+            <label for="first_name">First Name</label>
+            <input asp-for="first_name" type="text" />
+            <Br />
+            <label for="last_name">Last Name</label>
+            <input asp-for="last_name" type="text" />
+            <Br />
+            <label for="birth_date">Birth Date</label>
+            <input asp-for="birth_date" type="date" />
+            <br />
+            <label for="country_of_residence">Country of Residence</label>
+            <input asp-for="country_of_residence" type="text" />
+            <br />
+            <label for="gender">Gender</label>
+            <select asp-for="gender">
+                <option value="">Select...</option>
+                <option value="M">Male</option>
+                <option value="F">Female</option>
+                <!-- Add other options as necessary -->
+            </select>
+            <Br />
+            <label for="age">Age</label>
+            <input asp-for="age" type="text" />
+            <br />
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+</div>

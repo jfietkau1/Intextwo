@@ -5,21 +5,39 @@
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))
 {
-    <li>
-        <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Profile</a>
-    </li>
-    <li>
-        <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-            <button  type="submit" class="nav-link btn btn-link text-dark">Logout</button>
-        </form>
-    </li>
+    @if (User.IsInRole("Admin"))
+    {
+            <li class="btn btn-outline-danger rounded-pill m-3">
+                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Admin Profile</a>
+            </li>
+            <li class="btn btn-outline-info rounded-pill m-3">
+                <form class="form-inline absolute-center" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                    <button type="submit" class="nav-link btn btn-link text-dark text-center">Logout</button>
+                </form>
+            </li>
+            <li class="btn btn-outline-dark rounded-pill m-3">
+                <a class="btn" asp-controller="Home" asp-action="AdminMenu">Admin Tools</a>
+            </li>
+    }
+    else
+    {
+        <li class="btn btn-outline-danger rounded-pill m-3">
+            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Profile</a>
+        </li>
+            <li class="btn btn-outline-info rounded-pill m-3">
+                <form class="form-inline absolute-center" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+            </form>
+        </li>
+    }
 }
+
 else
 {
-    <li class="btn btn-outline-danger rounded-pill m-2">
+    <li class="btn btn-outline-danger rounded-pill m-3">
         <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
     </li>
-        <li class="btn btn-outline-info rounded-pill m-2">
+        <li class="btn btn-outline-info rounded-pill m-3">
         <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
     </li>
 }

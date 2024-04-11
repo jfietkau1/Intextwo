@@ -7,6 +7,7 @@ namespace Intextwo.Models
     {
         [Key, Column(Order = 0)]
         public int transaction_ID { get; set; }
+        public virtual Order Order { get; set; } // Navigation property to Order
 
         [Key, Column(Order = 1)]
         public int product_ID { get; set; }

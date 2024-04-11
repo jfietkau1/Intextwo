@@ -13,6 +13,7 @@ namespace Intextwo.Models
         public string? country_of_residence { get; set; }
         public string? gender { get; set; }
         public decimal? age { get; set; }
+        public int? recentprod { get; set; }
 
     }
 }

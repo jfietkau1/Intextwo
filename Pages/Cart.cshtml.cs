@@ -138,11 +138,14 @@ namespace Intextwo.Pages
                         product_ID = products[i].product_ID,
                         qty = quantities[i],
                         rating = order.transaction_ID // Make sure this is set correctly, perhaps after saving the order
-                                                  // Set any additional fields required by your LineItem entity
+                                               // Set any additional fields required by your LineItem entity
                     };
 
                     // Add line item to repository
+
                     _repo.Add(lineItem);
+                    customer.recentprod = lineItem.product_ID;
+                    //_---------------------------------------------------------------------------------------------------------
                 }
 
                 // Save all changes to the database

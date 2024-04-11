@@ -2,16 +2,30 @@
 
 namespace Intextwo.Models
 {
-    public class LegoDbContext: DbContext
+    public class LegoDbContext : DbContext
     {
         public LegoDbContext()
         {
         }
 
-
-        public LegoDbContext(DbContextOptions<LegoDbContext> options) 
+        public LegoDbContext(DbContextOptions<LegoDbContext> options)
             : base(options)
         {
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            // Configuration for Order and lineItem relationship
+            modelBuilder.Entity<Order>()
+                .HasMany(o => o.LineItems)
+                .WithOne(li => li.Order)
+                .HasForeignKey(li => li.transaction_ID);
+
+            // Primary key configuration for lineItem
+            modelBuilder.Entity<lineItem>()
+                .HasKey(li => new { li.transaction_ID, li.product_ID });
+
+            // ... Other configurations ...
         }
 
         public virtual DbSet<Customer> customer { get; set; }
@@ -21,15 +35,5 @@ namespace Intextwo.Models
         public virtual DbSet<ApplicationUser> AspNetUsers { get; set; }
         public virtual DbSet<UserCustomer> UserCustomer { get; set; }
         public virtual DbSet<Recommendation> recs { get; set; }
-
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<lineItem>()
-                .HasKey(li => new { li.transaction_ID, li.product_ID });
-
-            // ... other configurations ...
-        }
-
     }
 }

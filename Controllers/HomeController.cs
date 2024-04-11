@@ -34,62 +34,59 @@ namespace Intextwo.Controllers
         public async Task<IActionResult> Index()
         {
             IdentityUser user = await _userManager.GetUserAsync(User);
-            List<Product> viewproducts = new List<Product>();
-            // Id in User table is a string that looks like owiu498w3tu0w3
-            // customer_ID in customer table is int that looks like this: 30002
-            //linking table UserCustomer has shared values
             if (user != null)
             {
-                var userCustomer = _repo.UserCustomers.FirstOrDefault(x => x.Id == user.Id);
-                if (userCustomer != null)
+                // Assuming you have a Customers table and each customer has a 'recentprod' property
+                var customerID = await _repo.UserCustomers
+                                            .Where(uc => uc.Id == user.Id)
+                                            .Select(uc => uc.customer_ID)
+                                            .FirstOrDefaultAsync();
+
+                if (customerID != default)
                 {
-                    var order = _repo.Orders.FirstOrDefault(x => x.customer_ID == userCustomer.customer_ID);
-                    if (order != null)
+                    // Retrieve the recent product ID for this customer
+                    var recentProductId = await _repo.Customers
+                                                     .Where(c => c.customer_ID == customerID)
+                                                     .Select(c => c.recentprod)
+                                                     .FirstOrDefaultAsync();
+
+                    // Assuming the recent product ID is not 0 or a default value that indicates no recent product
+                    if (recentProductId > 0)
                     {
-                        var lineItem = _repo.LineItems.FirstOrDefault(x => x.transaction_ID == order.transaction_ID);
-                        if (lineItem != null)
+                        // Retrieve the product details for the recent product ID
+                        var recentProduct = await _repo.Products
+                                                       .FirstOrDefaultAsync(p => p.product_ID == recentProductId);
+
+                        var recommender = await _repo.recs
+                                                        .FirstOrDefaultAsync(x => x.name == recentProduct.name);
+                        List<string> names = new List<string>();
+
+                        // Add recommendations to the list
+                        names.Add(recommender.Recommendation1);
+                        names.Add(recommender.Recommendation2);
+                        names.Add(recommender.Recommendation3);
+                        names.Add(recommender.Recommendation4);
+                        names.Add(recommender.Recommendation5);
+
+                        List<Product> products = new List<Product>();
+                        foreach(var name in names)
                         {
-                            Product product = _repo.Products.FirstOrDefault(x => x.product_ID == lineItem.product_ID);
-                            if (product != null)
-                            {
-                                // You can use 'product' here as it's successfully retrieved.
-                                //this means they've made a purchase and there's an associated entry in the orders table
-                                List<string> recProds = new List<string>();
-
-                                var recentPurchase = _repo.recs.Where(x => x.name == product.name).FirstOrDefault();
-                 
-                                
-                                recProds.Append(recentPurchase.Recommendation1);
-                                recProds.Append(recentPurchase.Recommendation2);
-                                recProds.Append(recentPurchase.Recommendation3);
-                                recProds.Append(recentPurchase.Recommendation4);
-                                recProds.Append(recentPurchase.Recommendation5);
-                                
-
-
-                                foreach (var recommendation in recProds)
-                                {
-                                    Product prod1 = _repo.Products.FirstOrDefault(x => x.name == recommendation);
-                                    viewproducts.Append(prod1);
-                                }
-                                return View("UserRecommendationIndex", viewproducts);
-
-                            }
+                            products.Add(_repo.Products.FirstOrDefault(x => x.name == name));
                         }
+
+                        // If the product exists, pass it to the view, else pass an empty list
+                        return View(products);
                     }
                 }
             }
-            else
-            {
-                //return regular index view with most recommended 
-                //this means that the customer hasn't made a purchase
-                return View("Index");
-            }
 
-
-
-            return View();
+            // If no user, customer, or order is found, return an empty list to the view
+            return View(new List<Product>());
         }
+
+
+
+
 
         [Authorize (Roles = "Admin")]
         public IActionResult AdminMenu()

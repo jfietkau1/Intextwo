@@ -21,7 +21,6 @@ namespace Intextwo.Models
         public string? type_of_card { get; set; }
         public bool? fraud { get; set; }
         public string? country_of_transaction { get; set ; }
-        public virtual ICollection<lineItem> LineItems { get; set; }
 
 
 

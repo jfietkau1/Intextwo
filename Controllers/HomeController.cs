@@ -33,6 +33,8 @@ namespace Intextwo.Controllers
 
         public async Task<IActionResult> Index()
         {
+            List<Product> products = new List<Product>();
+
             IdentityUser user = await _userManager.GetUserAsync(User);
             if (user != null)
             {
@@ -68,7 +70,6 @@ namespace Intextwo.Controllers
                         names.Add(recommender.Recommendation4);
                         names.Add(recommender.Recommendation5);
 
-                        List<Product> products = new List<Product>();
                         foreach(var name in names)
                         {
                             products.Add(_repo.Products.FirstOrDefault(x => x.name == name));
@@ -80,8 +81,14 @@ namespace Intextwo.Controllers
                 }
             }
 
+            List<int> numbers = new List<int> { 24, 20, 22, 21, 13 };
+            foreach(var i in numbers)
+            {
+                products.Add(_repo.Products.FirstOrDefault(x => x.product_ID == i));
+            }
+
             // If no user, customer, or order is found, return an empty list to the view
-            return View(new List<Product>());
+            return View(products);
         }
 
 

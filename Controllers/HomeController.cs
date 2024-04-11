@@ -10,6 +10,7 @@ using Microsoft.ML.OnnxRuntime.Tensors;
 using Elfie.Serialization;
 using Microsoft.AspNetCore.Authorization;
 using System.Drawing.Printing;
+using Microsoft.Identity.Client;
 
 
 namespace Intextwo.Controllers
@@ -118,18 +119,38 @@ namespace Intextwo.Controllers
         }
 
         [HttpGet]
-        public IActionResult CustProductList(int pageNum, string? searchParam, int? pageSizes)
+        public IActionResult CustProductList(int pageNum, string? searchParam, int? pageSizes, string? cat, string? color)
         {
-            if (pageNum == 0) { pageNum = 1; }
-            int pageSize = 6;
+
+            List<string> colors = new List<string>();
+            List<string> categories = new List<String>();
+            if (pageNum == 0) 
+            { 
+                pageNum = 1;
+            }
+            int pageSize = pageSizes ?? 6;
             if(pageSizes != null)
             {
                 pageSize = pageSizes.Value;
             }
 
+            var cats = _repo.GetUniqueCategories(); //fetch unique categories
+            var colorssss = _repo.GetUniqueColors(); // Fetch unique colors
+
+            foreach (var i in cats)
+            {
+                categories.Add(i);
+            }
+            foreach(var i in colorssss)
+            {
+                colors.Add(i);
+            }
+
 
             var productQuery = _repo.Products
-            .Where(x => searchParam == null || EF.Functions.Like(x.name, $"%{searchParam}%")); //executes part of the query
+            .Where(x => (searchParam == null || EF.Functions.Like(x.name, $"%{searchParam}%"))
+                    && (cat == null || x.category == cat) // Checks if category filter is provided
+                    && (color == null || x.primary_color == color)); // Checks if color filter is provided
 
 
             var viewModel = new ProductListViewModel()
@@ -137,6 +158,7 @@ namespace Intextwo.Controllers
 
                 // this statement pulls in the product data, sets the number for this page, and will also query for a specific
                 //string if you pass one in with a search bar. 
+
                 Products = productQuery
                 .OrderBy(x => x.name)
                 .Skip((pageNum - 1) * pageSize)
@@ -147,7 +169,11 @@ namespace Intextwo.Controllers
                     ItemsPerPage = pageSize,
                     TotalItems = productQuery.Count()
 
-                }
+                },
+                Categories = categories,
+                Colors = colors,
+                searchParam = searchParam
+                //add categories and colors here
             };
 
             return View(viewModel);

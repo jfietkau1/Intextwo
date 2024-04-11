@@ -13,7 +13,9 @@
 </div>
 
 <div class="row p-2 bg-white green-border shadow rounded-3 absolute-center">
+    <form asp-action="CustProductList" method="get" onsubmit="setHiddenInputValues(this)">
     <div class="row absolute-center justify-content-between m-2">
+
         <div class="col absolute-center">
             Items/Page
             <select class="form-select m-3" id="pageSizeElementId" style="width: 150px;">
@@ -45,6 +47,9 @@
                 }
             </select>
         </div>
+        
+            <button type="submit" class="btn btn-primary">Apply Adjustments</button>
+        </form>
     </div>
         @* <div class="col absolute-center">
 

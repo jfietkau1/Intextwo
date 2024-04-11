@@ -269,7 +269,7 @@ hr {
     transition: transform 0.2s;
 }
 
-.card:hover {
+.card.m-2:hover {
     transform: scale(1.02);
 }
 

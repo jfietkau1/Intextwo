@@ -4,13 +4,6 @@
 @model IEnumerable<Intextwo.Models.ViewModels.OrderViewModel>
 @using Intextwo.Infrastructure
 
-<div class="green-brick text-white">
-    <h2 class="center">
-        WELCOME
-    </h2>
-</div>
-
-
 <div id="alert" class="alert alert-info alert-dismissible fade show" role="alert">
     <strong>Wait!</strong> This site may use cookies to enhance your experience.
     <button type="button" class="btn btn-primary" id="acceptButton">Accept</button>
@@ -18,10 +11,19 @@
     <button type="button" class="btn btn-secondary" id="privacyButton">Privacy</button>
 </div>
 
+<div class="green-brick text-white">
+    <h2 class="center">
+        WELCOME
+    </h2>
+</div>
 
 
 <h1>Recommended Products:</h1>
 <br />
+
+
+<div class="container">
+<div class="row">
 <div class="col-md-4 mb-4">
     <div class="card">
         <a asp-controller="Home" asp-action="SeeProd" asp-route-id="24" class="card-link">
@@ -145,7 +147,8 @@
 
     </div>
 </div>
-
+</div>
+</div>
 
 
 

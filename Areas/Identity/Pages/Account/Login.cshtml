@@ -5,7 +5,16 @@
     ViewData["Title"] = "Log in";
 }
 
-<h1>@ViewData["Title"]</h1>
+
+<div class="row">
+    <div class="blue-brick text-white col col-1">
+        <h2 class="center">
+            @ViewData["Title"]
+        </h2>
+    </div>
+    <div class="w-100"></div>
+    <div class="bg-white col blue-border rounded-3 shadow">
+        <div class="container">
 <div class="row">
     <div class="col-md-4">
         <section>
@@ -78,7 +87,9 @@
     </div>
 </div>
 
-
+</div>
+    </div>
+</div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

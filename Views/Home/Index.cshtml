@@ -2,6 +2,7 @@
     ViewData["Title"] = "Home Page";
 }
 @model IEnumerable<Intextwo.Models.ViewModels.OrderViewModel>
+@using Intextwo.Infrastructure
 
 <div class="green-brick text-white">
     <h2 class="center">
@@ -16,6 +17,135 @@
     <button type="button" class="btn btn-secondary" id="declineButton">Decline</button>
     <button type="button" class="btn btn-secondary" id="privacyButton">Privacy</button>
 </div>
+
+
+
+<h1>Recommended Products:</h1>
+<br />
+<div class="col-md-4 mb-4">
+    <div class="card">
+        <a asp-controller="Home" asp-action="SeeProd" asp-route-id="24" class="card-link">
+            <img src="https://www.lego.com/cdn/cs/set/assets/blt2a6bae345f3aa198/40674.png?format=webply&fit=bounds&quality=75&width=640&height=640&dpr=1" class="card-img-top" alt="Product Image">
+            <div class="card-body">
+                <h5 class="card-title">Stitch</h5>
+                <p class="card-text">Year: 2024</p>
+                <p class="card-text">Number of Parts: 65</p>
+                <p class="card-text">Price: 10</p>
+                <p class="card-text">Primary Color: Blue</p>
+                <p class="card-text">Secondary Color: Pink</p>
+                <p class="card-text">Category: Character - Disney</p>
+            </div>
+
+        </a>
+        <form method="post" asp-page="/Cart">
+            <input type="hidden" name="productid" value="24" />
+            <input type="hidden" name="returnUrl" value="@Context.Request.PathAndQuery()" />
+            <button type="submit" class="btn-success">+ Add to cart</button>
+
+        </form>
+
+    </div>
+</div>
+<div class="col-md-4 mb-4">
+    <div class="card">
+        <a asp-controller="Home" asp-action="SeeProd" asp-route-id="20" class="card-link">
+            <img src="https://images.brickset.com/sets/large/100-1.jpg?201609280928" class="card-img-top" alt="Product Image">
+            <div class="card-body">
+                <h5 class="card-title">4.5V Small Motor With Wheels (Small Version)</h5>
+                <p class="card-text">Year: 1966</p>
+                <p class="card-text">Number of Parts: 8</p>
+                <p class="card-text">Price: 3</p>
+                <p class="card-text">Primary Color: Blue</p>
+                <p class="card-text">Secondary Color: Red</p>
+                <p class="card-text">Category: Part - Train - Vehicle</p>
+            </div>
+
+        </a>
+        <form method="post" asp-page="/Cart">
+            <input type="hidden" name="productid" value="20" />
+            <input type="hidden" name="returnUrl" value="@Context.Request.PathAndQuery()" />
+            <button type="submit" class="btn-success">+ Add to cart</button>
+
+        </form>
+
+    </div>
+</div>
+
+<div class="col-md-4 mb-4">
+    <div class="card">
+        <a asp-controller="Home" asp-action="SeeProd" asp-route-id="22" class="card-link">
+            <img src="https://images.brickset.com/sets/large/745-1.jpg?201801070239" class="card-img-top" alt="Product Image">
+            <div class="card-body">
+                <h5 class="card-title">Baseplate</h5>
+                <p class="card-text">Year: 1978</p>
+                <p class="card-text">Number of Parts: 2</p>
+                <p class="card-text">Price: 3</p>
+                <p class="card-text">Primary Color: Green</p>
+                <p class="card-text">Secondary Color: Green</p>
+                <p class="card-text">Category: Part</p>
+            </div>
+
+        </a>
+        <form method="post" asp-page="/Cart">
+            <input type="hidden" name="productid" value="22" />
+            <input type="hidden" name="returnUrl" value="@Context.Request.PathAndQuery()" />
+            <button type="submit" class="btn-success">+ Add to cart</button>
+
+        </form>
+
+    </div>
+</div>
+
+<div class="col-md-4 mb-4">
+    <div class="card">
+        <a asp-controller="Home" asp-action="SeeProd" asp-route-id="21" class="card-link">
+            <img src="https://images.brickset.com/sets/images/5070-1.jpg" class="card-img-top" alt="Product Image">
+            <div class="card-body">
+                <h5 class="card-title">Wheel Sets, Black</h5>
+                <p class="card-text">Year: 1987</p>
+                <p class="card-text">Number of Parts: 2</p>
+                <p class="card-text">Price: 2</p>
+                <p class="card-text">Primary Color: Black</p>
+                <p class="card-text">Secondary Color: Black</p>
+                <p class="card-text">Category: Part - Vehicle</p>
+            </div>
+
+        </a>
+        <form method="post" asp-page="/Cart">
+            <input type="hidden" name="productid" value="21" />
+            <input type="hidden" name="returnUrl" value="@Context.Request.PathAndQuery()" />
+            <button type="submit" class="btn-success">+ Add to cart</button>
+
+        </form>
+
+    </div>
+</div>
+
+<div class="col-md-4 mb-4">
+    <div class="card">
+        <a asp-controller="Home" asp-action="SeeProd" asp-route-id="13" class="card-link">
+            <img src="https://www.brickeconomy.com/resources/images/sets/lego-4465-1_large.jpg" class="card-img-top" alt="Product Image">
+            <div class="card-body">
+                <h5 class="card-title">Coca-Cola Vending Machine</h5>
+                <p class="card-text">Year: 2002</p>
+                <p class="card-text">Number of Parts: 6</p>
+                <p class="card-text">Price: 8</p>
+                <p class="card-text">Primary Color: Red</p>
+                <p class="card-text">Secondary Color: Black</p>
+                <p class="card-text">Category: Promotional - Food</p>
+            </div>
+
+        </a>
+        <form method="post" asp-page="/Cart">
+            <input type="hidden" name="productid" value="13" />
+            <input type="hidden" name="returnUrl" value="@Context.Request.PathAndQuery()" />
+            <button type="submit" class="btn-success">+ Add to cart</button>
+
+        </form>
+
+    </div>
+</div>
+
 
 
 

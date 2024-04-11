@@ -13,6 +13,18 @@
 </div>
 
 <div class="row p-2 bg-white green-border shadow rounded-3">
+    <div class="row justify-content-md-start">
+@*         <form asp-action="CustProductList" asp-route-pageNum="1" asp-route-pageSize="" method="get">
+
+        </form> *@
+
+        <div class="col btn btn-light text-black border border-black m-2" value="5">5</div>
+        <div class="col btn btn-light text-black border border-black m-2" value="10">10</div>
+        <div class="col btn btn-light text-black border border-black m-2 " value="20">20</div>
+
+    </div>
+
+
     @foreach (var x in Model.Products)
     {
         <div class="col-md-4 mb-4">

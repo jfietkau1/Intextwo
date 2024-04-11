@@ -34,9 +34,6 @@ namespace Intextwo.Controllers
             return View();
         }
 
-
-
-
         [Authorize (Roles = "Admin")]
         public IActionResult AdminMenu()
         {
@@ -171,7 +168,7 @@ namespace Intextwo.Controllers
             {
                 pageNum = 1;
             }
-            var pageSize = 6;
+            var pageSize = 50;
             var query = _repo.Orders // This method needs to exist in your repository
                         .Join(_repo.Customers, // This method also needs to be defined
                             order => order.customer_ID, // Assumes Order has a CustomerId

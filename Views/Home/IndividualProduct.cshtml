@@ -6,32 +6,45 @@
 @using Intextwo.Infrastructure
 @model ProductRecommendationViewModel
 
-<a class="btn btn-dark" asp-controller="Home" asp-action="CustProductList">Back</a>
-
 <div class="container">
     <div class="card p-5 green-border">
+        <a asp-controller="Home" asp-action="CustProductList" class="btn btn-primary m-3 text-white rounded-pill" style="width:150px;">Back</a>
+
         <div class="card-body">
             <div class="row">
                 <div class="col">
-                    <div>
+                    <div class="item-title rounded nav-item m-2 p-2">
+                        <h4 class="card-title">@Model.Product.name</h4>
+                    </div>
+                    <div class="border border-light shadow-sm m-2 rounded">
                         <input type="hidden" asp-for="@Model.Product.product_ID">
-                        <img src="@Model.Product.img_link" class="card-img-top" alt="Product Image" style="width:50%;">
+                        <img src="@Model.Product.img_link" class="card-img-top p-3 rounded" alt="Product Image" style="width:100%;">
                     </div>
-                    <div>
-                        <h5 class="card-title">@Model.Product.name</h5>
+                    <div class="absolute-center">
+                        <form method="post" asp-page="/Cart">
+                            <input type="hidden" name="productid" value="@Model.Product.product_ID" />
+                            <input type="hidden" name="returnUrl" value="@Context.Request.PathAndQuery()" />
+                            <button type="submit" class="btn add-cart-button rounded-pill m-2 p-2" style="width:500px;"><h4>+ Add to cart</h4></button>
+                        </form>
                     </div>
+
                 </div>
                 <div class="col">
-                    <p class="card-text">Year: @Model.Product.year</p>
-                    <p class="card-text">Number of Parts: @Model.Product.num_parts</p>
-                    <p class="card-text">Price: @Model.Product.price</p>
-                    <p class="card-text">Primary Color: @Model.Product.primary_color</p>
-                    <p class="card-text">Secondary Color: @Model.Product.secondary_color</p>
-                    <p class="card-text">Description: @Model.Product.description</p>
-                    <p class="card-text">Category: @Model.Product.category</p>
+                    <p class="card-text"><strong class="rounded-3 m-2 p-2 bg-light">Year:</strong> @Model.Product.year</p>
+                    <p class="card-text"><strong class="rounded-3 m-2 p-2 bg-light">Number of Parts:</strong> @Model.Product.num_parts</p>
+                    <p class="card-text"><strong class="rounded-3 m-2 p-2 bg-light">Price:</strong> @Model.Product.price</p>
+                    <p class="card-text"><strong class="rounded-3 m-2 p-2 bg-light">Primary Color:</strong> @Model.Product.primary_color</p>
+                    <p class="card-text"><strong class="rounded-3 m-2 p-2 bg-light">Secondary Color:</strong> @Model.Product.secondary_color</p>
+                    <p class="card-text"><strong class="rounded-3 m-2 p-2 bg-light">Category:</strong> @Model.Product.category</p>
+                    <br />
+                    <div class="m-3">
+                        <strong class="card-text">Description:</strong>
+                        <hr />
+                        <p class="card-text">@Model.Product.description</p>
+                    </div>
                 </div>
             </div>
-        <div>
+        <div class="m-2">
             <h5>Recommendations:</h5>
             <ul>
                 <li>@Model.Recommendations.Recommendation1</li>
@@ -57,14 +70,5 @@
              </div>
      </div> EDIT THIS SOON*@
 
-    <br />
-    <form method="post" asp-page="/Cart">
-        <input type="hidden" name="productid" value="@Model.Product.product_ID" />
-        <input type="hidden" name="returnUrl" value="@Context.Request.PathAndQuery()" />
-        <button type="submit" class="btn-success">+ Add to cart</button>
-
-    </form>
-    <br />
-
-    
+    </div>
 </div>

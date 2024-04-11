@@ -39,18 +39,21 @@ namespace Intextwo.Controllers
             //linking table UserCustomer has shared values
             if (user != null)
             {
-                var userCustomer = _repo.UserCustomers.FirstOrDefault(x => x.Id == user.Id);
+                UserCustomer userCustomer = _repo.UserCustomers.FirstOrDefault(x => x.Id == user.Id);
                 if (userCustomer != null)
                 {
-                    var order = _repo.Orders.FirstOrDefault(x => x.customer_ID == userCustomer.customer_ID);
+                    Order order = _repo.Orders.FirstOrDefault(x => x.customer_ID == userCustomer.customer_ID);
                     if (order != null)
                     {
-                        var lineItem = _repo.LineItems.FirstOrDefault(x => x.transaction_ID == order.transaction_ID);
-                        if (lineItem != null)
+
+                        int transId = order.transaction_ID;
+                        string stringId = transId.ToString();
+
+                        lineItem LineItem = _repo.LineItems.SingleOrDefault(x => x.transaction_ID.ToString() == stringId);
                         {
-                            Product product = _repo.Products.FirstOrDefault(x => x.product_ID == lineItem.product_ID);
-                            if (product != null)
-                            {
+                            Product product = _repo.Products.FirstOrDefault(x => x.product_ID == LineItem.product_ID);
+                              if (product != null)
+                              {
                                 // You can use 'product' here as it's successfully retrieved.
                                 //this means they've made a purchase and there's an associated entry in the orders table
                                 List<string> recProds = new List<string>();

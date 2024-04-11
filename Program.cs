@@ -2,6 +2,7 @@ using Intextwo.Data;
 using Intextwo.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Build.Experimental;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -67,6 +68,12 @@ builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 var app = builder.Build();
 
+
+if (!app.Environment.IsDevelopment())
+{
+    app.UseHsts();
+
+}
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

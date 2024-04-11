@@ -4,7 +4,7 @@
 @{
 }
 
-@model IQueryable<User>
+@model IQueryable<ApplicationUser>
 
 <h1>User Management</h1>
 <form action="/Identity/Account/Register" method="get">
@@ -17,21 +17,21 @@
             <th>Username</th>
             <th>Password</th>
             <th>Customer ID</th>
-            <th>Authorization Status</th>
+            <th>Two Factor Enabled</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var u in Model)
         {
             <tr>
-                <td>@u.username</td>
-                <td>@u.password</td>
-                <td>@u.customer_ID</td>
-                <td>@u.auth_status</td>
+                <td>@u.UserName</td>
+                <td>@u.PasswordHash</td>
+                <td>@u.Id</td>
+                <td>@u.TwoFactorEnabled</td>
                 <td>
                     <!-- Add buttons for actions (Edit/Remove) -->
-                <td><a class="btn btn-primary" asp-controller="Home" asp-action="EditUser" asp-route-id="@u.username">Edit</a></td>
-                <td><a class="btn btn-alert" asp-controller="Home" asp-action="DeleteUser" asp-route-id="@u.username">Delete</a></td>
+                <td><a class="btn btn-primary" asp-controller="Home" asp-action="EditUser" asp-route-id="@u.UserName">Edit</a></td>
+                <td><a class="btn btn-alert" asp-controller="Home" asp-action="DeleteUser" asp-route-id="@u.UserName">Delete</a></td>
             </tr>
         }
     </tbody>

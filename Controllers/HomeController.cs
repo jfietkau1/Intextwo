@@ -53,7 +53,7 @@ namespace Intextwo.Controllers
         public IActionResult DeleteUser(int id)
         {
             var recordToDelete = _repo.AspNetUsers
-                .Single(x => x.Id == id);
+                .Single(x => x.Id == id.ToString());
             return View(recordToDelete);
         }
 

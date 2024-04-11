@@ -71,7 +71,7 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.Use(async (context, next) => {
-        context.Response.Headers.Add("Content-Security-Policy", "default-src 'self'; img-src 'self' data: https://m.media-amazon.com https://www.lego.com https://images.brickset.com https://www.brickeconomy.com https://cdn.builder.io; script-src 'self' https://code.jquery.com https://cdn.jsdelivr.net https://maxcdn.bootstrapcdn.com; font-src 'self' https://fonts.gstatic.com https://fonts.googleapis.com; style-src 'self' https://maxcdn.bootstrapcdn.com https://cdn.jsdelivr.net 'unsafe-inline';"); // Adjust these directives according to your application's requirements
+        context.Response.Headers.Add("Content-Security-Policy", "default-src 'self'; img-src 'self' data: https://m.media-amazon.com https://www.lego.com https://images.brickset.com https://www.brickeconomy.com https://cdn.builder.io; script-src 'self' 'unsafe-inline' https://code.jquery.com https://cdn.jsdelivr.net https://maxcdn.bootstrapcdn.com; font-src 'self' https://fonts.gstatic.com https://fonts.googleapis.com; style-src 'self' https://maxcdn.bootstrapcdn.com https://cdn.jsdelivr.net 'unsafe-inline';"); // Adjust these directives according to your application's requirements
         await next();
     });
 

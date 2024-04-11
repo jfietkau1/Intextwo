@@ -11,26 +11,26 @@
 <div class="container">
     <div class="card p-5 green-border">
         <div class="card-body">
-            <div class="col">
-                <h5 class="card-title">@Model.Product.name</h5>
+            <div class="row">
+                <div class="col">
+                    <div>
+                        <input type="hidden" asp-for="@Model.Product.product_ID">
+                        <img src="@Model.Product.img_link" class="card-img-top" alt="Product Image" style="width:50%;">
+                    </div>
+                    <div>
+                        <h5 class="card-title">@Model.Product.name</h5>
+                    </div>
+                </div>
+                <div class="col">
+                    <p class="card-text">Year: @Model.Product.year</p>
+                    <p class="card-text">Number of Parts: @Model.Product.num_parts</p>
+                    <p class="card-text">Price: @Model.Product.price</p>
+                    <p class="card-text">Primary Color: @Model.Product.primary_color</p>
+                    <p class="card-text">Secondary Color: @Model.Product.secondary_color</p>
+                    <p class="card-text">Description: @Model.Product.description</p>
+                    <p class="card-text">Category: @Model.Product.category</p>
+                </div>
             </div>
-            <div class="col">
-                <p class="card-text">Year: @Model.Product.year</p>
-                <p class="card-text">Number of Parts: @Model.Product.num_parts</p>
-                <p class="card-text">Price: @Model.Product.price</p>
-                <p class="card-text">Primary Color: @Model.Product.primary_color</p>
-                <p class="card-text">Secondary Color: @Model.Product.secondary_color</p>
-                <p class="card-text">Description: @Model.Product.description</p>
-                <p class="card-text">Category: @Model.Product.category</p>
-            </div>
-
-            <div class="w-100"></div>
-
-            <div class="col">
-                <input type="hidden" asp-for="@Model.Product.product_ID">
-                <img src="@Model.Product.img_link" class="card-img-top" alt="Product Image">
-            </div>
-
         <div>
             <h5>Recommendations:</h5>
             <ul>

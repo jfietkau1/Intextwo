@@ -44,7 +44,7 @@
                 <td><a class="btn btn-primary" asp-controller="Home" asp-action="EditUser" asp-route-id="@u.Id">Edit</a></td>
                 <td>
                     <form id="deleteForm" method="post" asp-controller="Home" asp-action="DeleteUser">
-                         <input type="hidden" name="id" id="userIdToDelete" value="@u.Id" />
+                         <input type="hidden" name="id" id="userIdToDelete" value="@u.UserName" />
                         <button type="submit" class="btn btn-alert" asp-controller="Home" asp-action="DeleteUser" onclick="confirmDelete('@u.Id')">Delete</button>
                     </form>
                 </td>

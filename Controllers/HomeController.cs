@@ -237,12 +237,24 @@ namespace Intextwo.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
+
         [HttpGet]
         public IActionResult SeeProd(int id)
         {
             var recordToSee = _repo.Products
                 .Single(x => x.product_ID == id);
-            return View("IndividualProduct", recordToSee);
+
+            var recommendations = _repo.GetRecommendationForProduct(recordToSee);
+
+
+            var viewModel = new ProductRecommendationViewModel
+
+            {
+                Product = recordToSee,
+                Recommendations = recommendations
+            };
+
+            return View("IndividualProduct", viewModel);
         }
 
         

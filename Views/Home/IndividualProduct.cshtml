@@ -4,31 +4,43 @@
 @{
 }
 @using Intextwo.Infrastructure
-@model Product
+@model ProductRecommendationViewModel
 
 <a class="btn btn-dark" asp-controller="Home" asp-action="CustProductList">Back</a>
 
 <div class="container mt-5">
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title">@Model.name</h5>
-            <input type="hidden" asp-for="product_ID"></input>
-            <img src="@Model.img_link" class="card-img-top" alt="Product Image">
-            <p class="card-text">Year: @Model.year</p>
-            <p class="card-text">Number of Parts: @Model.num_parts</p>
-            <p class="card-text">Price: @Model.price</p>
-            <p class="card-text">Primary Color: @Model.primary_color</p>
-            <p class="card-text">Secondary Color: @Model.secondary_color</p>
-            <p class="card-text">Description: @Model.description</p>
-            <p class="card-text">Category: @Model.category</p>
+            <h5 class="card-title">@Model.Product.name</h5>
+            <input type="hidden" asp-for="@Model.Product.product_ID">
+            <img src="@Model.Product.img_link" class="card-img-top" alt="Product Image">
+            <p class="card-text">Year: @Model.Product.year</p>
+            <p class="card-text">Number of Parts: @Model.Product.num_parts</p>
+            <p class="card-text">Price: @Model.Product.price</p>
+            <p class="card-text">Primary Color: @Model.Product.primary_color</p>
+            <p class="card-text">Secondary Color: @Model.Product.secondary_color</p>
+            <p class="card-text">Description: @Model.Product.description</p>
+            <p class="card-text">Category: @Model.Product.category</p>
         </div>
+    </div>
+    <div>
+        <h5>Recommendations:</h5>
+        <ul>
+            <li>@Model.Recommendations.Recommendation1</li>
+            <li>@Model.Recommendations.Recommendation2</li>
+            <li>@Model.Recommendations.Recommendation3</li>
+            <li>@Model.Recommendations.Recommendation4</li>
+            <li>@Model.Recommendations.Recommendation5</li>
+        </ul>
     </div>
     <br />
     <form method="post" asp-page="/Cart">
-        <input type="hidden" name="productid" value="@Model.product_ID" />
+        <input type="hidden" name="productid" value="@Model.Product.product_ID" />
         <input type="hidden" name="returnUrl" value="@Context.Request.PathAndQuery()" />
         <button type="submit" class="btn-success">+ Add to cart</button>
 
     </form>
     <br />
+
+    
 </div>

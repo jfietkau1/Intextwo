@@ -13,15 +13,11 @@
 </div>
 
 <div class="row p-2 bg-white green-border shadow rounded-3">
-    <div class="col justify-content-md-start">
-@*         <form asp-action="CustProductList" asp-route-pageNum="1" asp-route-pageSize="" method="get">
-
-        </form> *@
-@* 
-        <div class="text-black border border-black m-2" value="5">5</div>
-        <div class="text-black border border-black m-2" value="10">10</div>
-        <div class="text-black border border-black m-2" value="20">20</div> *@
-
+    <div class="row absolute-center justify-content-lg-start m-2">
+        View Layout:
+        <div class="rounded-3 btn small-button text-black btn-outline-success m-2 absolute-center" value="5">5</div>
+        <div class="rounded-3 btn small-button text-black btn-outline-success m-2 absolute-center" value="10">10</div>
+        <div class="rounded-3 btn small-button text-black btn-outline-success m-2 absolute-center" value="20">20</div>
     </div>
 
 
@@ -35,7 +31,7 @@
                         <h5 class="card-title">@x.name</h5>
                         <p class="card-text">Year: @x.year</p>
                         <p class="card-text">Number of Parts: @x.num_parts</p>
-                        <p class="card-text">Price: @x.price</p>
+                        <p class="card-text">Price: $@x.price</p>
                         <p class="card-text">Primary Color: @x.primary_color</p>
                         <p class="card-text">Secondary Color: @x.secondary_color</p>
                         <p class="card-text">Category: @x.category</p>

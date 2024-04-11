@@ -15,6 +15,38 @@
 <div class="row p-2 bg-white green-border shadow rounded-3 absolute-center">
     <div class="row absolute-center justify-content-between m-2">
         <div class="col absolute-center">
+            Items/Page
+            <select class="form-select m-3" id="pageSizeElementId" style="width: 150px;">
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
+            </select>
+        </div>
+        <div class="col absolute-center">
+            <label for="colorDropdown">Choose a Color:</label>
+            <select class="form-select m-3" id="colorDropdown" name="color" style="width: 150px;">
+                <!-- Adjusted width here -->
+                <option value="">All Colors</option>
+
+                @foreach (var color in Model.Colors)
+                {
+                    <option value="@color">@color</option>
+                }
+            </select>
+        </div>
+        <div class="col absolute-center">
+            <label for="categoryDropdown">Choose a Category:</label>
+            <select class="form-select m-3" id="categoryDropdown" name="cat" style="width: 150px;">
+                <!-- Adjusted width here -->
+                <option value="">All Categories</option>
+                @foreach (var category in Model.Categories)
+                {
+                    <option value="@category">@category</option>
+                }
+            </select>
+        </div>
+    </div>
+        @* <div class="col absolute-center">
 
             View Layout:
             <div class="rounded-3 btn small-button text-black btn-outline-success m-2 absolute-center" value="5">5</div>
@@ -24,8 +56,9 @@
         <div class="col absolute-center">
             Pages:
             <div page-model="@Model.PaginationInfo" page-action="CustProductList" page-class-enabled="true" page-class="btn bg-danger " page-class-normal="btn-outline-light text-light" page-class-selected="btn bg-white text-black" class="btn-group pull-right m-3 rounded-3 border border-danger" style="width:auto;">Pages: </div>
-        </div>
-    </div>
+        </div> *@
+
+
 
 
 
@@ -61,6 +94,13 @@
             </div>
         </div>
     }
+    
+    <div class="row absolute center">
+        <div class="co">
+            Pages:
+            <div page-model="@Model.PaginationInfo" page-action="CustProductList" page-class-enabled="true" page-class="btn bg-danger " page-class-normal="btn-outline-light text-light" page-class-selected="btn bg-white text-black" class="btn-group pull-right m-3 rounded-3 border border-danger ">Pages: </div>
+        </div>
+    </div>
 
 </div>
 

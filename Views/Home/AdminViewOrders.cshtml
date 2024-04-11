@@ -3,10 +3,47 @@
 *@
 @{
 }
+@model OrderViewModel
 
 <h2>View Order Information</h2>
 
+<div>
 
+    <table>
+        <thead>
+            <tr>
+                <th>Fraud?</th>
+                <th>Customer Name</th>
+                <th>Gender</th>
+                <th>Age</th>
+                <th>Subtotal</th>
+                <th>Bank</th>
+                <th>Country</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var x in Model.OrdersAndCustomers)
+            {
+                <tr>
+                    <td>@x.fraud</td>
+                    <td>@x.first_name @x.last_name</td>
+                    <td>@x.gender</td>
+                    <td>@x.age</td>
+                    <td>@x.amount</td>
+                    <td>@x.bank</td>
+                    <td>@x.country_of_residence</td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+
+</div>
+<div class="col-1">
+    <h3>Pages:</h3>
+    <hr />
+    <div page-model="@Model.PaginationInfo" page-action="AdminViewOrders" page-class-enabled="true" page-class="btn bg-danger " page-class-normal="btn-outline-light text-light" page-class-selected="btn bg-white text-black" class="btn-group pull-right m-3 rounded-3 border border-danger ">Pages: </div>
+</div>
 
 
 

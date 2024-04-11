@@ -4,11 +4,24 @@
 @model IEnumerable<Intextwo.Models.ViewModels.OrderViewModel>
 @using Intextwo.Infrastructure
 
-<div id="alert" class="alert alert-info alert-dismissible fade show" role="alert">
-    <strong>Wait!</strong> This site may use cookies to enhance your experience.
-    <button type="button" class="btn btn-primary" id="acceptButton">Accept</button>
-    <button type="button" class="btn btn-secondary" id="declineButton">Decline</button>
-    <button type="button" class="btn btn-secondary" id="privacyButton">Privacy</button>
+<!-- Modal -->
+<div class="modal fade" id="cookieModal" tabindex="-1" aria-labelledby="cookieModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="cookieModalLabel">Cookie Policy</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>This site may use cookies to enhance your experience.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="acceptButton" data-bs-dismiss="modal">Accept</button>
+                <button type="button" class="btn btn-secondary" id="declineButton" data-bs-dismiss="modal">Decline</button>
+                <button type="button" class="btn btn-secondary" id="privacyButton">Privacy</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="green-brick text-white">
@@ -158,16 +171,10 @@
 @section Scripts {
     <script>
         $(document).ready(function () {
-            // Display the alert
-            $("#alert").show();
+            // Show the modal
+            $("#cookieModal").modal('show');
 
             // Attach click events to both buttons
-            $("#acceptButton").click(function () {
-                // Handle accept logic here
-                // ...
-                $("#alert").hide();
-            });
-
             $("#declineButton").click(function () {
                 // Redirect to the privacy page
                 window.location.href = '@Url.Action("Sorry", "Home")';

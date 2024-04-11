@@ -30,38 +30,47 @@
 <div class="green-brick text-white">
     <h2 class="center">WELCOME</h2>
 </div>
+<div class="row p-2 bg-white green-border shadow rounded-3 absolute-center">
 
-<h1>Recommended Products:</h1>
-<br />
 
-<div class="container">
-    <div class="row">
-        @foreach (var product in Model)
-        {
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <a asp-controller="Home" asp-action="SeeProd" asp-route-id="@product.product_ID" class="card-link">
-                        <img src="@product.img_link" class="card-img-top" alt="Product Image">
-                        <div class="card-body">
-                            <h5 class="card-title">@product.name</h5>
-                            <p class="card-text">Year: @product.year</p>
-                            <p class="card-text">Number of Parts: @product.num_parts</p>
-                            <p class="card-text">Price: @product.price</p>
-                            <p class="card-text">Primary Color: @product.primary_color</p>
-                            <p class="card-text">Secondary Color: @product.secondary_color</p>
-                            <p class="card-text">Category: @product.category</p>
+    <h3>Recommended Products For You:</h3>
+    <hr />
+
+    <div class="container">
+        <div class="row absolute-center">
+            @foreach (var x in Model)
+            {
+                <div class="col-md-2 mb-4 m-2">
+                    <div class="card m-2 item-border">
+                        <a asp-controller="Home" asp-action="SeeProd" asp-route-id="@x.product_ID" class="card-link">
+                            <img src="@x.img_link" class="card-img-top p-2 rounded-3" alt="Product Image">
+                            <div class="item-title rounded nav-item m-2">
+                                <h5 class="card-title p-4">@x.name</h5>
+                            </div>
+                        </a>
+                        <div class="card-body text-md-start">
+                            <div class="p-2">
+                                <p class="card-text"><span class="rounded-3 m-2 p-2 bg-light">Year:</span> @x.year</p>
+                                <p class="card-text"> <span class="rounded-3 m-2 p-2 bg-light">Num Parts:</span> @x.num_parts</p>
+                                <p class="card-text"> <span class="rounded-3 m-2 p-2 bg-light">Price:</span> $@x.price</p>
+                            </div>
                         </div>
-                    </a>
-                    <form method="post" asp-page="/Cart">
-                        <input type="hidden" name="productid" value="@product.product_ID" />
-                        <input type="hidden" name="returnUrl" value="@Context.Request.PathAndQuery()" />
-                        <button type="submit" class="btn-success">+ Add to cart</button>
-                    </form>
+
+
+                        <form method="post" asp-page="/Cart" class="absolute-center">
+                            <input type="hidden" name="productid" value="@x.product_ID" />
+                            <input type="hidden" name="returnUrl" value="@Context.Request.PathAndQuery()" />
+                            <button type="submit" class="btn add-cart-button rounded-pill m-2 p-2" style="width: 1000px">+ Add to cart</button>
+
+                        </form>
+
+                    </div>
                 </div>
-            </div>
-        }
+            }
+        </div>
     </div>
 </div>
+
 
 @section Scripts {
     <script>

@@ -23,5 +23,13 @@ namespace Intextwo.Models
         public virtual DbSet<Recommendation> recs { get; set; }
 
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<lineItem>()
+                .HasKey(li => new { li.transaction_ID, li.product_ID });
+
+            // ... other configurations ...
+        }
+
     }
 }

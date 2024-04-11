@@ -134,7 +134,7 @@ namespace Intextwo.Pages
                     int max_line_id = await _repo.LineItems.MaxAsync(o => (int?)o.transaction_ID) ?? 0;
                     lineItem lineItem = new lineItem // LineItem class should match your database schema
                     {
-                        transaction_ID = max_line_id + 1,
+                        transaction_ID = order.transaction_ID,
                         product_ID = products[i].product_ID,
                         qty = quantities[i],
                         rating = order.transaction_ID // Make sure this is set correctly, perhaps after saving the order

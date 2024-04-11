@@ -18,8 +18,8 @@
 </script>
 
 <h1>User Management</h1>
-<form action="/Identity/Account/Register" method="get">
-    <button type="submit" class="btn btn-primary">Register</button>
+<form asp-action="AdminAddUser" method="get">
+    <button type="submit" class="btn btn-primary">Create User</button>
 </form>
 
 <table id="userTable">
@@ -41,7 +41,7 @@
                 <td>@u.TwoFactorEnabled</td>
                 <td>
                     <!-- Add buttons for actions (Edit/Remove) -->
-                <td><a class="btn btn-primary" asp-controller="Home" asp-action="EditUser" asp-route-id="@u.Id">Edit</a></td>
+                <td><a class="btn btn-primary" asp-controller="Home" asp-action="AdminUpdateUser" asp-route-id="@u.Id">Edit</a></td>
                 <td>
                     <form id="deleteForm" method="post" asp-controller="Home" asp-action="DeleteUser">
                          <input type="hidden" name="id" id="userIdToDelete" value="@u.UserName" />

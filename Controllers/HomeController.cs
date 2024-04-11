@@ -22,7 +22,7 @@ namespace Intextwo.Controllers
         private readonly InferenceSession _session; // ONNX Runtime InferenceSession
         private readonly UserManager<IdentityUser> _userManager;
 
-        public HomeController( ILegoRepository temp, UserManager<IdentityUser> userManager)
+        public HomeController(ILegoRepository temp, UserManager<IdentityUser> userManager)
         {
             _repo = temp;
             _session = new InferenceSession("wwwroot/fraud_pred.onnx");
@@ -56,14 +56,14 @@ namespace Intextwo.Controllers
                                 List<string> recProds = new List<string>();
 
                                 var recentPurchase = _repo.recs.Where(x => x.name == product.name).FirstOrDefault();
-                 
-                                
+
+
                                 recProds.Append(recentPurchase.Recommendation1);
                                 recProds.Append(recentPurchase.Recommendation2);
                                 recProds.Append(recentPurchase.Recommendation3);
                                 recProds.Append(recentPurchase.Recommendation4);
                                 recProds.Append(recentPurchase.Recommendation5);
-                                
+
 
 
                                 foreach (var recommendation in recProds)
@@ -90,7 +90,7 @@ namespace Intextwo.Controllers
             return View();
         }
 
-        [Authorize (Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public IActionResult AdminMenu()
         {
             return View();
@@ -100,6 +100,39 @@ namespace Intextwo.Controllers
         {
             var users = _repo.AspNetUsers;
             return View("AdminUserEdit", users);
+
+        }
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public IActionResult AdminAddUser()
+        {
+            var newUser = new ApplicationUser
+            {
+                Id = Guid.NewGuid().ToString(), // Generate a new GUID for Id
+                UserName = "", // Set the default username
+                NormalizedUserName = "", // Set the default normalized username
+                NormalizedEmail = "", // Set the default normalized email
+                EmailConfirmed = false, // Email is not confirmed by default
+                PasswordHash = "", // Set the default password hash
+                SecurityStamp = "", // Set the default security stamp
+                ConcurrencyStamp = Guid.NewGuid().ToString(), // Generate a new GUID for concurrency stamp
+                PhoneNumber = "", // Set the default phone number
+                PhoneNumberConfirmed = false, // Phone number is not confirmed by default
+                TwoFactorEnabled = false, // Two-factor authentication is not enabled by default
+                LockoutEnd = null, // No lockout end by default
+                LockoutEnabled = false, // Lockout is not enabled by default
+                AccessFailedCount = 0 // No access failures by default
+            };
+            return View(newUser);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public IActionResult AdminAddUser(ApplicationUser user)
+        {
+            _repo.Add(user);
+            _repo.SaveChanges();
+            return RedirectToAction("AdminUserEdit");
         }
         [HttpPost]
         [Authorize(Roles = "Admin")]
@@ -109,9 +142,25 @@ namespace Intextwo.Controllers
                 .Single(x => x.Id == id);
             _repo.Remove(recordToDelete);
             _repo.SaveChanges();
-           return RedirectToAction("AdminUserEdit");
+            return RedirectToAction("AdminUserEdit");
         }
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public IActionResult AdminUpdateUser(string id)
+        {
+            var recordToEdit = _repo.AspNetUsers
+                .Single(x => x.Id == id);
+            return View("AdminUpdateUser", recordToEdit);
+        }
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public IActionResult AdminUpdateUser(ApplicationUser user)
+        {
+            _repo.Update(user);
+            _repo.SaveChanges();
 
+            return RedirectToAction("AdminUserEdit");
+        }
         [HttpGet]
         [Authorize(Roles = "Admin")]
         public IActionResult AdminAddProduct()
@@ -181,7 +230,7 @@ namespace Intextwo.Controllers
         {
             if (pageNum == 0) { pageNum = 1; }
             int pageSize = 6;
-            if(pageSizes != null)
+            if (pageSizes != null)
             {
                 pageSize = pageSizes.Value;
             }
@@ -200,7 +249,7 @@ namespace Intextwo.Controllers
                 .OrderBy(x => x.name)
                 .Skip((pageNum - 1) * pageSize)
                 .Take(pageSize),
-                PaginationInfo = new PaginationInfo() 
+                PaginationInfo = new PaginationInfo()
                 {
                     CurrentPage = pageNum,
                     ItemsPerPage = pageSize,
@@ -220,7 +269,7 @@ namespace Intextwo.Controllers
         [Authorize(Roles = "Admin")]
         public IActionResult AdminViewOrders(int pageNum)
         {
-            if(pageNum == 0)
+            if (pageNum == 0)
             {
                 pageNum = 1;
             }
@@ -255,7 +304,7 @@ namespace Intextwo.Controllers
                             })
                         .AsQueryable();
 
-            
+
             var skipAmount = (pageNum - 1) * pageSize;
             var productOrders = query.Skip(skipAmount).Take(pageSize).ToList();
             var totalItems = query.Count();
@@ -341,24 +390,31 @@ namespace Intextwo.Controllers
         [HttpPost]
         public IActionResult Predict(int day_of_week_Mon, int day_of_week_Sat, int day_of_week_Sun, int day_of_week_Thu, int day_of_week_Tue, int day_of_week_Wed, int time_1, int time_2, int time_3, int time_4, int time_5, int time_6, int time_7, int time_8, int time_9, int time_10, int time_11, int time_12, int time_13, int time_14, int time_15, int time_16, int time_17, int time_18, int time_19, int time_20, int time_21, int time_22, int time_23, int time_24, int entry_mode_PIN, int entry_mode_Tap, int type_of_transaction_Online, int type_of_transaction_POS, int country_of_transaction_India, int country_of_transaction_Russia, int country_of_transaction_USA, int country_of_transaction_United_Kingdom, int shipping_address_India, int shipping_address_Russia, int shipping_address_USA, int shipping_address_United_Kingdom, int bank_HSBC, int bank_Halifax, int bank_Lloyds, int bank_Metro, int bank_Monzo, int bank_RBS, int type_of_card_Visa)
         {
-
             var class_type_dict = new Dictionary<int, string>
     {
-                { 0, "not fraud" },
-                { 1, "fraud" }
+        { 0, "not fraud" },
+        { 1, "fraud" }
     };
 
             try
             {
                 Random random = new Random();
-                var input = new List<float> { day_of_week_Mon, day_of_week_Sat, day_of_week_Sun, day_of_week_Thu, day_of_week_Tue, day_of_week_Wed, time_1, time_2, time_3, time_4, time_5, time_6, time_7, time_8, time_9, time_10, time_11, time_12, time_13, time_14, time_15, time_16, time_17, time_18, time_19, time_20, time_21, time_22, time_23, time_24, entry_mode_PIN, entry_mode_Tap, type_of_transaction_Online, type_of_transaction_POS, country_of_transaction_India, country_of_transaction_Russia, country_of_transaction_USA, country_of_transaction_United_Kingdom, shipping_address_India, shipping_address_Russia, shipping_address_USA, shipping_address_United_Kingdom, bank_HSBC, bank_Halifax, bank_Lloyds, bank_Metro, bank_Monzo, bank_RBS, type_of_card_Visa };
-
-
+                var input = new List<float>
+                {
+                    day_of_week_Mon, day_of_week_Sat, day_of_week_Sun, day_of_week_Thu, day_of_week_Tue, day_of_week_Wed,
+                    time_1, time_2, time_3, time_4, time_5, time_6, time_7, time_8, time_9, time_10, time_11, time_12,
+                    time_13, time_14, time_15, time_16, time_17, time_18, time_19, time_20, time_21, time_22, time_23,
+                    time_24, entry_mode_PIN, entry_mode_Tap, type_of_transaction_Online, type_of_transaction_POS,
+                    country_of_transaction_India, country_of_transaction_Russia, country_of_transaction_USA,
+                    country_of_transaction_United_Kingdom, shipping_address_India, shipping_address_Russia,
+                    shipping_address_USA, shipping_address_United_Kingdom, bank_HSBC, bank_Halifax, bank_Lloyds,
+                    bank_Metro, bank_Monzo, bank_RBS, type_of_card_Visa
+                };
 
                 var inputTensor = new DenseTensor<float>(input.ToArray(), new[] { 1, input.Count });
                 var inputs = new List<NamedOnnxValue>
-            {
-                NamedOnnxValue.CreateFromTensor("float_input", inputTensor)
+        {
+            NamedOnnxValue.CreateFromTensor("float_input", inputTensor)
         };
 
                 using (var results = _session.Run(inputs)) // makes the prediction with the inputs from the form (i.e. class_type 1-7)
@@ -380,7 +436,6 @@ namespace Intextwo.Controllers
                             return View("Index");
                         }
                     }
-
                     else
                     {
                         ViewBag.Prediction = "Error: Unable to make a prediction.";
@@ -394,5 +449,7 @@ namespace Intextwo.Controllers
 
             return View("Index");
         }
+
     }
 }
+

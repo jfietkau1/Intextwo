@@ -239,6 +239,87 @@ hr {
     height: 50px;
     width: 50px
 }
+
+.add-cart-button {
+    background-color: #E97705;
+    color: white;
+}
+
+.item-border {
+    border-style: solid;
+    border-color: #008E3C;
+    border-width: 3px;
+    margin-bottom: 100px
+}
+
+.item-border-nopad {
+    border-style: solid;
+    border-color: #008E3C;
+    border-width: 3px;
+}
+
+.item-title {
+    background-color: #008E3C;
+    color: white;
+    text-align: center;
+}
+
+.card {
+    text-decoration: none;
+    transition: transform 0.2s;
+}
+
+.card.m-2:hover {
+    transform: scale(1.02);
+}
+
+a {
+    text-decoration: none;
+    transition: transform 0.2s;
+}
+
+a:hover {
+    transform: scale(1.01);
+}
+
+a.card:hover {
+    transform: none;
+}
+
+.btn:hover {
+    opacity: 90%;
+}
+
+.vl {
+    border-left: 2px solid green;
+    height: 10px;
+}
+
+table {
+    background-color: white;
+}
+
+.table-total {
+    background-color: #008E3C;
+    color: white;
+}
+
+.green-brick-small {
+    background-image: url('../lib/img/green_lego.png');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    width: 250px;
+    height: 65px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.bottom {
+    position: absolute;
+    bottom: 10PX;
+}
+
 /*.background-image {
     position: absolute;
     inset: 0;

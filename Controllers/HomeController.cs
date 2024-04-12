@@ -154,7 +154,7 @@ namespace Intextwo.Controllers
         {
             var recordToEdit = _repo.AspNetUsers
                 .Single(x => x.Id == id);
-            return View("AdminUpdateUser", recordToEdit);
+            return View("AdminUserEdit", recordToEdit);
         }
         [HttpPost]
         [Authorize(Roles = "Admin")]

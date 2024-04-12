@@ -103,6 +103,17 @@
         </div>
     }
     
+<script>
+    window.onload = function () {
+        var searchParamElement = document.getElementById('searchParam');
+        if (searchParamElement) {
+            searchParamElement.value = '@Model.searchParam';
+        }
+    };
+</script>
+
+
+
     <div class="row absolute center">
         <div class="co">
             Pages:

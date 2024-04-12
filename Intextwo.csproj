@@ -8,6 +8,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\fraud_pred (2).onnx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\fraud_pred (2).onnx" />
     <None Include="wwwroot\fraud_pred.onnx" />
   </ItemGroup>
 

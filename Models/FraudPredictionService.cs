@@ -9,9 +9,21 @@ namespace Intextwo.Models
         public FraudPredictionService(IWebHostEnvironment env)
         {
             // Build the path to the model file
-            var modelPath = Path.Combine(env.ContentRootPath, "fraud_pred (2).onnx");
 
-            // Ensure the file exists
+            string modelPath;
+
+            if (env.IsDevelopment())
+            {
+                // For local development, use the file directly from the project directory
+                modelPath = Path.Combine(env.ContentRootPath, "fraud_pred (2).onnx");
+            }
+            else
+            {
+                // For production in Azure, use the file from the wwwroot directory
+                // Adjust the path if your deployment process places the file elsewhere
+                modelPath = Path.Combine(env.WebRootPath, "fraud_pred (2).onnx");
+            }
+
             if (!File.Exists(modelPath))
             {
                 throw new FileNotFoundException("The ONNX model file was not found.", modelPath);

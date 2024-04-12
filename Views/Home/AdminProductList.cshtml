@@ -3,37 +3,69 @@
 }
 
 @model List<Product>
-<table class="table green-border table-striped p-2 shadow rounded-3">
-    <thead>
-    <td>Product Name</td>
-    <td>Year</td>
-    <td>Number of Parts</td>
-    <td>Price</td>
-    <td>Image</td>
-    <td>primary color</td>
-    <td>secondary color</td>
-    <td>Description</td>
-    <td>Category</td>
-    <td>Actions</td>
-    </thead>
-    @foreach (var x in Model)
-    {
-        <tbody>
-            <tr>
-                <td>@x.name</td>
-                <td>@x.year</td>
-                <td>@x.num_parts</td>
-                <td>@x.price</td>
-                <td><img source=@x.img_link /></td>
-                <td>@x.primary_color</td>
-                <td>@x.secondary_color</td>
-                <td>@x.description</td>
-                <td>@x.category</td>
 
-                <td><a class="btn btn-primary" asp-controller="Home" asp-action="EditProd" asp-route-id="@x.product_ID">Edit</a></td>
-                <td><a class="btn btn-danger" asp-controller="Home" asp-action="DeleteProd" asp-route-id="@x.product_ID">Delete</a></td>
-            </tr>
-        </tbody>
-    }
-    <a class="btn btn-outline-primary" asp-controller="Home" asp-action="AdminAddProduct">+ Add Product</a>
-</table>
+<div class="green-brick-small text-white"></div>
+<div class="green-border bg-white table-striped p-2 shadow rounded-3">
+    <div class="row">
+        <div class="col">
+            <div class="text-center ">
+                <a class="btn add-cart-button rounded-pill" asp-controller="Home" asp-action="AdminProductList">Products</a>
+            </div>
+        </div>
+
+        <div class="col">
+            <form method="post">
+                <div class="text-center">
+                    <a class="btn add-cart-button rounded-pill" asp-controller="Home" asp-action="AdminViewOrders">Orders</a>
+                </div>
+            </form>
+        </div>
+
+        <div class="col">
+            <form method="post">
+                <div class="text-center">
+                    <a class="btn add-cart-button rounded-pill" asp-controller="Home" asp-action="AdminUpdateUser">Users</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <div class="row absolute-center m-2">
+        <a class="btn btn-outline-primary" asp-controller="Home" asp-action="AdminAddProduct">+ Add Product</a>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+        <td>Product Name</td>
+        <td>Year</td>
+        <td>Number of Parts</td>
+        <td>Price</td>
+        <td>Image</td>
+        <td>primary color</td>
+        <td>secondary color</td>
+        <td>Description</td>
+        <td>Category</td>
+        <td>Actions</td>
+        </thead>
+        @foreach (var x in Model)
+        {
+            <tbody>
+                <tr>
+                    <td>@x.name</td>
+                    <td>@x.year</td>
+                    <td>@x.num_parts</td>
+                    <td>@x.price</td>
+                    <td><img source=@x.img_link /></td>
+                    <td>@x.primary_color</td>
+                    <td>@x.secondary_color</td>
+                    <td>@x.description</td>
+                    <td>@x.category</td>
+
+                    <td><a class="btn btn-primary" asp-controller="Home" asp-action="EditProd" asp-route-id="@x.product_ID">Edit</a></td>
+                    <td><a class="btn btn-danger" asp-controller="Home" asp-action="DeleteProd" asp-route-id="@x.product_ID">Delete</a></td>
+                </tr>
+            </tbody>
+        }
+    </table>
+</div>
+

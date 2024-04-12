@@ -47,16 +47,29 @@
                     </div>
                 </div>
             </div>
-        <div class="m-2">
-            <h5>Recommendations:</h5>
-            <ul>
-                <li>@Model.Recommendations.Recommendation1</li>
-                <li>@Model.Recommendations.Recommendation2</li>
-                <li>@Model.Recommendations.Recommendation3</li>
-                <li>@Model.Recommendations.Recommendation4</li>
-                <li>@Model.Recommendations.Recommendation5</li>
-            </ul>
-        </div>
+            <div class="m-2">
+                <h3>You may also like...</h3>
+                <hr />
+                <hr />
+                <div class="row">
+                    @foreach (var product in Model.Recommendations)
+                    {
+                        <div class="col-sm-2">
+                            <!-- Adjust the column size as needed -->
+                            <a asp-action="SeeProd" asp-route-id="@product.product_ID" class="text-decoration-none">
+                                <div class="item-title rounded nav-item p-2">
+                                    <h6 class="card-title">@product.name</h6>
+                                </div>
+                                <div class="border border-light shadow-sm rounded">
+                                    <input type="hidden" asp-for="@product.product_ID">
+                                    <img src="@product.img_link" class="card-img-top p-2 rounded" alt="Product Image" style="max-height: 100px; max-width: 100%;">
+                                </div>
+                            </a>
+                        </div>
+                    }
+                </div>
+            </div>
+
     </div>
 @*     <div>
     <h5>Recommendations:</h5>

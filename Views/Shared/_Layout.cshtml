@@ -7,9 +7,9 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Intextwo.styles.css" asp-append-version="true" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
     <link rel="icon" href="~/favicon.ico" type="image/x-icon" />
     <link rel="shortcut icon" href="~/favicon.ico" type="image/x-icon" />
 </head>
@@ -40,9 +40,9 @@
         </nav>
     </header> *@
 
-    <header class="header shadow rounded-pill">
+    <header class="header shadow">
         <div class="container">
-            <div class="row">
+            <div class="row space-mono-bold">
                 <div class="col-2">
                     <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
                         <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/3d3660e87ecaac15cafa9cb42798721e4047a1e0efee2935dcdbb5861cfde1cf?apiKey=9a246791027840cdbefebef3c3499f5e&" alt="Logo" class="logo" />
@@ -126,7 +126,7 @@
     </header>
 
     <div class="container">
-        <main role="main" class="pb-3">
+        <main role="main" class="pb-1">
             <vc:cart-summary ></vc:cart-summary>
             @RenderBody()
         </main>

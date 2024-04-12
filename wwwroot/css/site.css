@@ -17,12 +17,13 @@ html {
 
 body {
     margin-bottom: 60px;
-    background-image: url('https://cdn.builder.io/api/v1/image/assets/TEMP/c62a513b7448bbf120ca9d535aea69301ca36f3fa03f4862677bfe7f22a664f9?apiKey=9a246791027840cdbefebef3c3499f5e&');
+    /*    background-image: url('../lib/img/lego wallpaper.png');
+*/
+    background-image: url('../lib/img/lego wallpaper 2.png');
     background-size: cover;
     background-repeat: no-repeat;
-    background-attachment: fixed;
-    font-family: "Outfit", sans-serif;
-    font-optical-sizing: auto;
+    background-attachment: scroll;
+    font-family: "Space Mono", monospace;
     font-weight: 400;
     font-style: normal;
 }
@@ -31,6 +32,23 @@ body {
     background-image: url('https://cdn.builder.io/api/v1/image/assets/TEMP/416027b2bd405e20a5df77bf4bf140ca51889d9f971ce13d69187e5ad05a3218?')
 }
 
+.space-mono-bold {
+    font-family: "Space Mono", monospace;
+    font-weight: 700;
+    font-style: normal;
+}
+
+.space-mono-regular-italic {
+    font-family: "Space Mono", monospace;
+    font-weight: 400;
+    font-style: italic;
+}
+
+.space-mono-bold-italic {
+    font-family: "Space Mono", monospace;
+    font-weight: 700;
+    font-style: italic;
+}
 
 .forum-template {
 }
@@ -139,7 +157,6 @@ body {
     display: flex;
     justify-content: center;
     text-align: center;
-    margin-top: 25px;
 }
 
 .blue-border {
@@ -172,7 +189,6 @@ body {
     display: flex;
     justify-content: center;
     text-align: center;
-    margin-top: 25px;
 }
 
 .green-border {

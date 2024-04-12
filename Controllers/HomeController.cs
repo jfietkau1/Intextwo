@@ -105,7 +105,6 @@ namespace Intextwo.Controllers
         {
             var users = _repo.AspNetUsers;
             return View("AdminUserEdit", users);
-
         }
         [HttpGet]
         [Authorize(Roles = "Admin")]
@@ -173,7 +172,7 @@ namespace Intextwo.Controllers
             return View();
         }
 
-        [HttpPost]
+        [HttpPost]  
         [Authorize(Roles = "Admin")]
         public IActionResult AdminAddProduct(Product product)
         {
@@ -423,14 +422,14 @@ namespace Intextwo.Controllers
         public IActionResult Predict(int day_of_week_Mon, int day_of_week_Sat, int day_of_week_Sun, int day_of_week_Thu, int day_of_week_Tue, int day_of_week_Wed, int time_1, int time_2, int time_3, int time_4, int time_5, int time_6, int time_7, int time_8, int time_9, int time_10, int time_11, int time_12, int time_13, int time_14, int time_15, int time_16, int time_17, int time_18, int time_19, int time_20, int time_21, int time_22, int time_23, int time_24, int entry_mode_PIN, int entry_mode_Tap, int type_of_transaction_Online, int type_of_transaction_POS, int country_of_transaction_India, int country_of_transaction_Russia, int country_of_transaction_USA, int country_of_transaction_United_Kingdom, int shipping_address_India, int shipping_address_Russia, int shipping_address_USA, int shipping_address_United_Kingdom, int bank_HSBC, int bank_Halifax, int bank_Lloyds, int bank_Metro, int bank_Monzo, int bank_RBS, int type_of_card_Visa)
         {
             var class_type_dict = new Dictionary<int, string>
-    {
-        { 0, "not fraud" },
-        { 1, "fraud" }
-    };
+            {
+                { 0, "not fraud" },
+                { 1, "fraud" }
+            };
 
             try
             {
-                Random random = new Random();
+                
                 var input = new List<float>
                 {
                     day_of_week_Mon, day_of_week_Sat, day_of_week_Sun, day_of_week_Thu, day_of_week_Tue, day_of_week_Wed,
@@ -445,9 +444,9 @@ namespace Intextwo.Controllers
 
                 var inputTensor = new DenseTensor<float>(input.ToArray(), new[] { 1, input.Count });
                 var inputs = new List<NamedOnnxValue>
-        {
-            NamedOnnxValue.CreateFromTensor("float_input", inputTensor)
-        };
+                {
+                    NamedOnnxValue.CreateFromTensor("float_input", inputTensor)
+                };
 
                 using (var results = _session.Run(inputs)) // makes the prediction with the inputs from the form (i.e. class_type 1-7)
                 {
@@ -460,12 +459,12 @@ namespace Intextwo.Controllers
                         if (fraud == "fraud")
                         {
                             ViewBag.Prediction = "Order processing"; // Set view message if fraud detected
-                            return View("Index");
+                            return View("FraudCheck");
                         }
                         else
                         {
                             ViewBag.Prediction = "Order fulfilled"; // Set view message if no fraud detected
-                            return View("Index");
+                            return View("FraudCheck");
                         }
                     }
                     else

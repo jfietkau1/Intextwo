@@ -61,7 +61,7 @@ namespace Intextwo.Models
 
         private float[] PrepareInputTensor(Order order) //this function calls all the dummy coding function
         {
-            var inputs = new float[51]; // Adjust the total number based on your actual model input
+            var inputs = new float[49]; // Adjust the total number based on your actual model input
 
             SetDayOfWeekDummyCoding(order.day_of_week, inputs);
             SetTimeOfDayDummyCoding(order.time, inputs);
@@ -75,7 +75,7 @@ namespace Intextwo.Models
             return inputs;
         }
 
-        public void SetDayOfWeekDummyCoding(string dayOfWeek, float[] inputs) //this code adds the dummy coded day of the week to an array
+        public void SetDayOfWeekDummyCoding(string dayOfWeek, float[] inputs) // This code adds the dummy coded day of the week to an array, with Friday dropped
         {
             var dayIndexMap = new Dictionary<string, int>
             {
@@ -83,12 +83,11 @@ namespace Intextwo.Models
                 {"Tue", 1},
                 {"Wed", 2},
                 {"Thu", 3},
-                {"Fri", 4},
-                {"Sat", 5},
-                {"Sun", 6}
+                {"Sat", 4},
+                {"Sun", 5}
             };
             // Reset the day of week fields to 0
-            for (int i = 0; i < 7; i++)
+            for (int i = 0; i < 6; i++) // There are now 6 active day indices because Friday is dropped
             {
                 inputs[i] = 0;
             }
@@ -99,10 +98,10 @@ namespace Intextwo.Models
             }
         }
 
-        public void SetTimeOfDayDummyCoding(int? time, float[] inputs)
+        public void SetTimeOfDayDummyCoding(int? time, float[] inputs)     //       24 options
         {
             // The time indices start at index 7, immediately after the day of week indices (which are 0 to 6)
-            int baseIndex = 7;
+            int baseIndex = 6;
 
             // Reset the time of day fields to 0
             for (int i = baseIndex; i < baseIndex + 24; i++) // There are 24 hours, from index 7 to 30
@@ -117,10 +116,10 @@ namespace Intextwo.Models
             }
         } //this code adds the dummy codes for time of day field
 
-        public void SetEntryModeDummyCoding(string entryMode, float[] inputs) //dummy codes entry mode
+        public void SetEntryModeDummyCoding(string entryMode, float[] inputs) //dummy codes entry mode     2 options
         {
             // Assuming the entry mode indices start at index 31
-            int baseIndex = 31;
+            int baseIndex = 30;
 
             // Reset the entry mode fields to 0
             inputs[baseIndex] = 0;   // Index for PIN
@@ -141,10 +140,10 @@ namespace Intextwo.Models
             }
         }
 
-        public void SetTypeOfTransactionDummyCoding(string typeOfTransaction, float[] inputs) //dummy codes type of transaction
+        public void SetTypeOfTransactionDummyCoding(string typeOfTransaction, float[] inputs) //dummy codes type of transaction      2 options
         {
             // Assuming the type of transaction indices start at index 33
-            int baseIndex = 33;
+            int baseIndex = 32;
 
             // Reset the type of transaction fields to 0
             inputs[baseIndex] = 0;   // Index for Online
@@ -165,10 +164,10 @@ namespace Intextwo.Models
             }
         }
 
-        public void SetCountryOfTransactionDummyCoding(string countryOfTransaction, float[] inputs) //dummy codes country of transaction
+        public void SetCountryOfTransactionDummyCoding(string countryOfTransaction, float[] inputs) //dummy codes country of transaction     4 options
         {
             // Define the starting index for country of transaction dummy coding
-            int baseIndex = 36;
+            int baseIndex = 35;
 
             // Reset the country of transaction fields to 0
             inputs[baseIndex] = 0;    // Index for India
@@ -194,10 +193,10 @@ namespace Intextwo.Models
             }
         }
 
-        public void SetShippingAddressDummyCoding(string shippingAddress, float[] inputs) // dummy codes shipping address
+        public void SetShippingAddressDummyCoding(string shippingAddress, float[] inputs) // dummy codes shipping address     4 options
         {
             // Define the starting index for shipping address dummy coding
-            int baseIndex = 40;
+            int baseIndex = 39;
 
             // Reset the shipping address fields to 0
             inputs[baseIndex] = 0;    // Index for India
@@ -223,10 +222,10 @@ namespace Intextwo.Models
             }
         }
 
-        public void SetBankDummyCoding(string bank, float[] inputs)// dummy codes bank
+        public void SetBankDummyCoding(string bank, float[] inputs)// dummy codes bank     6 dummy codes
         {
             // Define the starting index for bank dummy coding
-            int baseIndex = 44;
+            int baseIndex = 43;
 
             // Reset the bank fields to 0
             for (int i = baseIndex; i < baseIndex + 6; i++)
@@ -254,9 +253,9 @@ namespace Intextwo.Models
             }
         }
 
-        public void SetTypeOfCardDummyCoding(string typeOfCard, float[] inputs) // dummy code for card type
+        public void SetTypeOfCardDummyCoding(string typeOfCard, float[] inputs) // dummy code for card type   1 dummy code
         {
-            int visaIndex = 50; // Index for Visa
+            int visaIndex = 48; // Index for Visa
 
             // Reset the type of card field to 0
             inputs[visaIndex] = 0; // Only one index since we're using drop-first

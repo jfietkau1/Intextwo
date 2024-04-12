@@ -2,6 +2,6 @@
 {
     public interface IFraudPredictionService
     {
-        Task<bool> IsFraudulentOrderAsync(Order order);
+        bool IsFraudulentOrder(Order order);
     }
 }

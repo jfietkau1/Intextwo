@@ -6,25 +6,24 @@ namespace Intextwo.Models
     public class FraudPredictionService: IFraudPredictionService
     {
         private readonly InferenceSession _session;
-        public FraudPredictionService(InferenceSession session)
+        public FraudPredictionService(IWebHostEnvironment env)
         {
-            _session = session;
-        }
+            // Build the path to the model file
+            var modelPath = Path.Combine(env.ContentRootPath, "fraud_pred (2).onnx");
+
+            // Ensure the file exists
+            if (!File.Exists(modelPath))
+            {
+                throw new FileNotFoundException("The ONNX model file was not found.", modelPath);
+            }
+
+            // Create the inference session with the model
+            _session = new InferenceSession(modelPath);
+        }   
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-        public async Task<bool> IsFraudulentOrderAsync(Order order)
+        public bool IsFraudulentOrder(Order order)
         {
             var inputs = PrepareInputTensor(order);
 
@@ -268,14 +267,6 @@ namespace Intextwo.Models
                 inputs[visaIndex] = 1;
             }
         }
-
-
-
-
-
-
-
-
 
     }
 }

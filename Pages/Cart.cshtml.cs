@@ -16,6 +16,8 @@ namespace Intextwo.Pages
     {
         private readonly ILegoRepository _repo;
         private readonly UserManager<IdentityUser> _userManager;
+        private readonly IFraudPredictionService _fraudPredictionService;
+
 
         //these lists are used to randomly generate values for these fields when an order is created (because we don't have real data)
         private static readonly List<string> EntryModes = new List<string> { "Tap", "CVC", "PIN" };
@@ -28,11 +30,12 @@ namespace Intextwo.Pages
         private static readonly Random Random = new Random();
         public Cart Cart { get; set; }
 
-        public CartModel(ILegoRepository temp, Cart cartService, UserManager<IdentityUser> userManager)
+        public CartModel(ILegoRepository temp, Cart cartService, UserManager<IdentityUser> userManager, IFraudPredictionService fraudPredictionService)
         {
             _repo = temp;
             Cart = cartService;
             _userManager = userManager;
+            _fraudPredictionService = fraudPredictionService;
         }
 
         public string ReturnUrl { get; set; } = "/";
@@ -122,7 +125,12 @@ namespace Intextwo.Pages
                     order.shipping_address = customer.country_of_residence; //sets the address to the customer info address
                     order.bank = BankNames[Random.Next(BankNames.Count)];
                     order.type_of_card = CardTypes[Random.Next(CardTypes.Count)];
-                    order.fraud = false;
+
+                    //---------------------------------------------------------------------------------------------
+                    bool isFraudulent = _fraudPredictionService.IsFraudulentOrder(order);
+                    order.fraud = isFraudulent;
+
+                    //---------------------------------------------------------------------------------------------
                     order.country_of_transaction = customer.country_of_residence;
 
 
@@ -156,9 +164,20 @@ namespace Intextwo.Pages
                     // Clear the cart after successful checkout
                     ((SessionCart)Cart).Clear();
 
-                    // Redirect to a confirmation page or similar
-                    return RedirectToAction("OrderConfirmation");
 
+
+
+
+                    if(order.fraud == true)
+                    {
+                        return RedirectToAction("OrderPending");
+                    }
+                    else
+                    {
+                        return RedirectToAction("OrderConfirmation");
+
+
+                    }
 
                 }
                 else

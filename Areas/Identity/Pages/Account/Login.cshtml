@@ -12,14 +12,15 @@
             @ViewData["Title"]
         </h2>
     </div>
+    </div>
     <div class="w-100"></div>
     <div class="bg-white col blue-border rounded-3 shadow">
         <div class="container">
-<div class="row">
-    <div class="col-md-4">
-        <section>
+<div class="row absolute-center">
+    <div class="col-md-4 p-3">
+        <section p-2>
             <form id="account" method="post">
-                <h2>Use a local account to log in.</h2>
+                <h2>Log In With Your Email.</h2>
                 <hr />
                 <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
                 <div class="form-floating mb-3">
@@ -38,8 +39,20 @@
                         @Html.DisplayNameFor(m => m.Input.RememberMe)
                     </label>
                 </div>
-                <div>
-                    <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>
+                <div class="row">
+                    <div class="col">
+                                    <button id="login-submit" type="submit" class="w-100 btn rounded-pill add-cart-button">Log in</button>
+                    </div>
+                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+                        <div class="col">
+                            <p>
+                                @foreach (var provider in Model.ExternalLogins!)
+                                {
+                                    <button type="submit" class="btn rounded-pill btn-success p-3" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">Sign in with @provider.DisplayName</button>
+                                }
+                            </p>
+                        </div>
+                    </form>
                 </div>
                 <div>
                     <p>
@@ -55,35 +68,8 @@
             </form>
         </section>
     </div>
-    <div class="col-md-6 col-md-offset-2">
-        <section>
-            <h3>Use another service to log in.</h3>
-            <hr />
-            @{
-                if ((Model.ExternalLogins?.Count ?? 0) == 0)
-                {
-                    <div>
-                        <p>
-                            There are no external authentication services configured. See this <a href="https://go.microsoft.com/fwlink/?LinkID=532715">article
-                            about setting up this ASP.NET application to support logging in via external services</a>.
-                        </p>
-                    </div>
-                }
-                else
-                {
-                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
-                        <div>
-                            <p>
-                                @foreach (var provider in Model.ExternalLogins!)
-                                {
-                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
-                                }
-                            </p>
-                        </div>
-                    </form>
-                }
-            }
-        </section>
+    <div class="col">
+        <img src="~/lib/img/f39692ecaeca69ab75397c1caee129e8_w200.gif" style="width:50%" />
     </div>
 </div>
 

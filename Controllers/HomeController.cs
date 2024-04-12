@@ -22,13 +22,14 @@ namespace Intextwo.Controllers
         private readonly ILegoRepository _repo;
         private readonly InferenceSession _session; // ONNX Runtime InferenceSession
         private readonly UserManager<IdentityUser> _userManager;
+        public readonly RoleManager<IdentityRole> _roleManager;
 
-        public HomeController(ILegoRepository temp, UserManager<IdentityUser> userManager)
+        public HomeController(ILegoRepository temp, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _repo = temp;
             _session = new InferenceSession("wwwroot/fraud_pred.onnx");
             _userManager = userManager;
-
+            _roleManager = roleManager;
         }
 
         public async Task<IActionResult> Index()
@@ -379,6 +380,85 @@ namespace Intextwo.Controllers
             _repo.SaveChanges();
             return RedirectToPage("/Cart");
         }
+
+
+
+
+        [Authorize(Roles = "Admin")]
+        [HttpGet]
+        public async Task<IActionResult> EditUser(string id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            // Get all roles
+            var roles = _roleManager.Roles.Select(r => r.Name).ToList();
+            // Get the roles the user is currently in
+            var userRoles = await _userManager.GetRolesAsync(user);
+            // Pass user, roles, and user’s current roles to the view
+            var model = new EditUserViewModel
+            {
+                User = user,
+                Roles = roles,
+                SelectedRoles = userRoles.ToList()
+            };
+            return View(model);
+        }
+        [Authorize(Roles = "Admin")]
+        [HttpPost]
+        public async Task<IActionResult> EditUser(EditUserViewModel model)
+        {
+            var user = await _userManager.FindByIdAsync(model.User.Id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            // Assume other properties are updated if needed
+            user.Email = model.User.Email;
+
+            var userRoles = await _userManager.GetRolesAsync(user);
+            var removeResult = await _userManager.RemoveFromRolesAsync(user, userRoles);
+            if (!removeResult.Succeeded)
+            {
+                // Handle error, possibly by adding to ModelState and returning View(model)
+                return View(model);
+            }
+            var addResult = await _userManager.AddToRolesAsync(user, model.SelectedRoles);
+            if (!addResult.Succeeded)
+            {
+                // Handle error, possibly by adding to ModelState and returning View(model)
+                return View(model);
+            }
+            var updateResult = await _userManager.UpdateAsync(user);
+            if (!updateResult.Succeeded)
+            {
+                // Handle error, possibly by adding to ModelState and returning View(model)
+                return View(model);
+            }
+
+            return RedirectToAction("AdminUserEdit"); // Confirm this is the correct route
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         public IActionResult AboutUs()

@@ -55,8 +55,8 @@
     <thead>
         <tr>
             <th>Username</th>
-            <th>Password</th>
             <th>Customer ID</th>
+            <th>Access Failed Count</th>
             <th>Two Factor Enabled</th>
         </tr>
     </thead>
@@ -65,15 +65,15 @@
         {
             <tr>
                 <td>@u.UserName</td>
-                <td>@u.PasswordHash</td>
                 <td>@u.Id</td>
+                <td>@u.AccessFailedCount</td>
                 <td>@u.TwoFactorEnabled</td>
-                <td>
+                
                     <!-- Add buttons for actions (Edit/Remove) -->
-                <td><a class="btn btn-primary" asp-controller="Home" asp-action="AdminUpdateUser" asp-route-id="@u.Id">Edit</a></td>
+                <td><a class="btn btn-primary" asp-controller="Home" asp-action="EditUser" asp-route-id="@u.Id">Edit</a></td>
                 <td>
                     <form id="deleteForm" method="post" asp-controller="Home" asp-action="DeleteUser">
-                         <input type="hidden" name="id" id="userIdToDelete" value="@u.UserName" />
+                         <input type="hidden" name="id" id="userIdToDelete" value="@u.Id" />
                         <button type="submit" class="btn btn-alert" asp-controller="Home" asp-action="DeleteUser" onclick="confirmDelete('@u.Id')">Delete</button>
                     </form>
                 </td>

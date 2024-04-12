@@ -34,10 +34,9 @@
                     </div>
                 </form>
             </div>
-            <hr />
     </div>
 
-    <table class="table table-striped m-2">
+    <table class="table table-striped m-3">
 
         <thead>
             <tr>
@@ -66,14 +65,15 @@
         </tbody>
 
     </table>
+    <div class="col-1 m-2 p-2">
+        <h3>Pages:</h3>
+        <hr />
+        <div page-model="@Model.PaginationInfo" page-action="AdminViewOrders" page-class-enabled="true" page-class="btn bg-danger " page-class-normal="btn-outline-light text-light" page-class-selected="btn bg-white text-black" class="btn-group pull-right m-3 rounded-3 border border-danger ">Pages: </div>
+    </div>
 </div>
 
 
-<div class="col-1">
-    <h3>Pages:</h3>
-    <hr />
-    <div page-model="@Model.PaginationInfo" page-action="AdminViewOrders" page-class-enabled="true" page-class="btn bg-danger " page-class-normal="btn-outline-light text-light" page-class-selected="btn bg-white text-black" class="btn-group pull-right m-3 rounded-3 border border-danger ">Pages: </div>
-</div>
+
 
 
 

@@ -87,10 +87,21 @@
 @section Scripts {
     <script>
         $(document).ready(function () {
-            // Show the modal
-            $("#cookieModal").modal('show');
+            // Check if the user has already accepted the cookie policy
+            var hasAcceptedCookies = sessionStorage.getItem('hasAcceptedCookies');
 
-            // Attach click events to both buttons
+            // Show the modal only if the user hasn't accepted the cookie policy yet
+            if (hasAcceptedCookies !== 'true') {
+                $("#cookieModal").modal('show');
+            }
+
+            // When the "Accept" button is clicked
+            $("#acceptButton").click(function () {
+                // Store the acceptance in session storage
+                sessionStorage.setItem('hasAcceptedCookies', 'true');
+            });
+
+            // The rest of your button event handlers...
             $("#declineButton").click(function () {
                 // Redirect to the privacy page
                 window.location.href = '@Url.Action("Sorry", "Home")';

@@ -60,7 +60,16 @@ builder.Services.AddScoped<ILegoRepository, EFLegoRepository>();
 builder.Services.AddRazorPages();
 
 builder.Services.AddDistributedMemoryCache();
-builder.Services.AddSession();
+
+
+
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30); // Set session timeout to 30 minutes
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+
+});
 builder.Services.AddScoped<IFraudPredictionService, FraudPredictionService>();
 
 builder.Services.AddScoped<Cart>(sp => SessionCart.GetCart(sp));

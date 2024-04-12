@@ -11,9 +11,34 @@
 
 <h2>View Order Information</h2>
 
-<div>
+    <div class="green-brick-small text-white"></div>
+    <div class="green-border bg-white table-striped p-2 shadow rounded-3">
+        <div class="row">
+            <div class="col">
+                <div class="text-center ">
+                    <a class="btn add-cart-button rounded-pill" asp-controller="Home" asp-action="AdminProductList">Products</a>
+                </div>
+            </div>
 
-    <table class="table green-border table-striped p-2 shadow rounded-3">
+            <div class="col">
+                <form method="post">
+                    <div class="text-center">
+                        <a class="btn add-cart-button rounded-pill" asp-controller="Home" asp-action="AdminViewOrders">Orders</a>
+                    </div>
+                </form>
+            </div>
+
+            <div class="col">
+                <form method="post">
+                    <div class="text-center">
+                        <a class="btn add-cart-button rounded-pill" asp-controller="Home" asp-action="AdminUpdateUser">Users</a>
+                    </div>
+                </form>
+            </div>
+            <hr />
+    </div>
+
+    <table class="table table-striped m-2">
 
         <thead>
             <tr>
@@ -42,8 +67,9 @@
         </tbody>
 
     </table>
-
 </div>
+
+
 <div class="col-1">
     <h3>Pages:</h3>
     <hr />

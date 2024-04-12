@@ -249,7 +249,7 @@ namespace Intextwo.Controllers
 
             var cats = _repo.GetUniqueCategories(); //fetch unique categories
             var colorssss = _repo.GetUniqueColors(); // Fetch unique colors
-
+                
             foreach (var i in cats)
             {
                 categories.Add(i);

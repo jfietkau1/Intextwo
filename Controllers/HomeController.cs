@@ -334,6 +334,7 @@ namespace Intextwo.Controllers
                                 gender = customer.gender,
                                 age = customer.age // Ensure your model supports this directly or adjust accordingly
                             })
+                        .OrderByDescending(o => o.date)
                         .AsQueryable();
 
 

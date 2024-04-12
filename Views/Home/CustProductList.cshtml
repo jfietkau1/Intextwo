@@ -16,12 +16,12 @@
 </div>
 
 <div class="row p-2 bg-white green-border shadow rounded-3 absolute-center">
-    <form asp-action="CustProductList" method="get" onsubmit="setHiddenInputValues(this)">
+    <form asp-action="CustProductList" method="get">
     <div class="row absolute-center justify-content-between m-2">
 
         <div class="col absolute-center">
             Items/Page
-            <select class="form-select m-3" id="pageSizeElementId" style="width: 150px;">
+            <select class="form-select m-3" id="pageSizeElementId" style="width: 150px;" name="pageSizes">
                 <option value="5">5</option>
                 <option value="10">10</option>
                 <option value="20">20</option>

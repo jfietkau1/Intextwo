@@ -4,7 +4,7 @@
     {
 
             public Product Product { get; set; }
-            public Recommendation Recommendations { get; set; }
+            public List<Product> Recommendations { get; set; }
 
     }
 }

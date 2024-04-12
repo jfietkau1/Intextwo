@@ -6,10 +6,27 @@
 @{
     ViewData["Title"] = "Admin Tools";
 }
-<h1>Admin Tools</h1>
-<div class="blue-brick">
-    <a class="btn text-white" asp-controller="Home" asp-action="AdminProductList">Products</a>
+<div class="green-brick-small text-white"></div>
+<div class="row p-2 rounded-3 bg-light shadow-sm item-border">
+    <div class="col">
+        <div class="text-center ">
+            <a class="btn add-cart-button rounded-pill" asp-controller="Home" asp-action="AdminProductList">Products</a>
+        </div>
+    </div>
+
+    <div class="col">
+        <form method="post">
+            <div class="text-center">
+                <a class="btn add-cart-button rounded-pill" asp-controller="Home" asp-action="AdminViewOrders">Orders</a>
+            </div>
+        </form>
+    </div>
+
+    <div class="col">
+        <form method="post">
+            <div class="text-center">
+                <a class="btn add-cart-button rounded-pill" asp-controller="Home" asp-action="AdminUserEdit">Users</a>
+            </div>
+        </form>
+    </div>
 </div>
-<a class="btn" asp-controller="Home" asp-action="AdminProductList">Products</a>
-<a class="btn" asp-controller="Home" asp-action="AdminViewOrders">Orders</a>
-<a class="btn" asp-controller="Home" asp-action="AdminUserEdit">Users</a>

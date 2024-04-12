@@ -11,9 +11,34 @@
 
 <h2>View Order Information</h2>
 
-<div>
+    <div class="green-brick-small text-white"></div>
+    <div class="green-border bg-white table-striped p-2 shadow rounded-3">
+        <div class="row">
+            <div class="col">
+                <div class="text-center ">
+                    <a class="btn add-cart-button rounded-pill" asp-controller="Home" asp-action="AdminProductList">Products</a>
+                </div>
+            </div>
 
-    <table>
+            <div class="col">
+                <form method="post">
+                    <div class="text-center">
+                        <a class="btn add-cart-button rounded-pill" asp-controller="Home" asp-action="AdminViewOrders">Orders</a>
+                    </div>
+                </form>
+            </div>
+
+            <div class="col">
+                <form method="post">
+                    <div class="text-center">
+                        <a class="btn add-cart-button rounded-pill" asp-controller="Home" asp-action="AdminUpdateUser">Users</a>
+                    </div>
+                </form>
+            </div>
+    </div>
+
+    <table class="table table-striped m-3">
+
         <thead>
             <tr>
                 <th>Fraud?</th>
@@ -41,13 +66,15 @@
         </tbody>
 
     </table>
+    <div class="col-1 m-2 p-2">
+        <h3>Pages:</h3>
+        <hr />
+        <div page-model="@Model.PaginationInfo" page-action="AdminViewOrders" page-class-enabled="true" page-class="btn bg-danger " page-class-normal="btn-outline-light text-light" page-class-selected="btn bg-white text-black" class="btn-group pull-right m-3 rounded-3 border border-danger ">Pages: </div>
+    </div>
+</div>
 
-</div>
-<div class="col-1">
-    <h3>Pages:</h3>
-    <hr />
-    <div page-model="@Model.PaginationInfo" page-action="AdminViewOrders" page-class-enabled="true" page-class="btn bg-danger " page-class-normal="btn-outline-light text-light" page-class-selected="btn bg-white text-black" class="btn-group pull-right m-3 rounded-3 border border-danger ">Pages: </div>
-</div>
+
+
 
 
 

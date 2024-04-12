@@ -480,17 +480,29 @@ namespace Intextwo.Controllers
         [HttpGet]
         public IActionResult SeeProd(int id)
         {
+            List<Product> products = new List<Product>();
             var recordToSee = _repo.Products
                 .Single(x => x.product_ID == id);
 
-            var recommendations = _repo.GetRecommendationForProduct(recordToSee);
+            var recommender = _repo.recs
+                                 .FirstOrDefault(x => x.name == recordToSee.name);
+            List<string> names = new List<string>();
 
+            names.Add(recommender.Recommendation1);
+            names.Add(recommender.Recommendation2);
+            names.Add(recommender.Recommendation3);
+            names.Add(recommender.Recommendation4);
+            names.Add(recommender.Recommendation5);
 
+            foreach (var name in names)
+            {
+                products.Add(_repo.Products.FirstOrDefault(x => x.name == name));
+            }
             var viewModel = new ProductRecommendationViewModel
 
             {
                 Product = recordToSee,
-                Recommendations = recommendations
+                Recommendations = products
             };
 
             return View("IndividualProduct", viewModel);

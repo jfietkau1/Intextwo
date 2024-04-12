@@ -9,6 +9,8 @@
 @using Intextwo.Infrastructure
 @model ProductRecommendationViewModel
 
+<div class="green-brick-small text-white" style="margin-left: 10px;"></div>
+
 <div class="container">
     <div class="card p-5 green-border">
         <a asp-controller="Home" asp-action="CustProductList" class="btn btn-primary m-3 text-white rounded-pill" style="width:150px;">Back</a>
@@ -47,22 +49,21 @@
                     </div>
                 </div>
             </div>
-            <div class="m-2">
+            <div class="m-4 p-2">
                 <h3>You may also like...</h3>
                 <hr />
-                <hr />
-                <div class="row">
+                <div class="row absolute-center">
                     @foreach (var product in Model.Recommendations)
                     {
-                        <div class="col-sm-2">
+                        <div class="col-sm-2 absolute-center">
                             <!-- Adjust the column size as needed -->
                             <a asp-action="SeeProd" asp-route-id="@product.product_ID" class="text-decoration-none">
-                                <div class="item-title rounded nav-item p-2">
-                                    <h6 class="card-title">@product.name</h6>
-                                </div>
                                 <div class="border border-light shadow-sm rounded">
                                     <input type="hidden" asp-for="@product.product_ID">
-                                    <img src="@product.img_link" class="card-img-top p-2 rounded" alt="Product Image" style="max-height: 100px; max-width: 100%;">
+                                    <img src="@product.img_link" class="card-img-top p-2 rounded" alt="Product Image" style="width:70%">
+                                </div>
+                                <div class="item-title rounded nav-item p-2">
+                                    <h6 class="card-title absolute-center">@product.name</h6>
                                 </div>
                             </a>
                         </div>

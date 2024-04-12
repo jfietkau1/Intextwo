@@ -104,7 +104,7 @@ else
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
+app.UseCookiePolicy();
 app.UseSession(); 
 
 app.UseRouting();
@@ -126,7 +126,7 @@ using (var scope = app.Services.CreateScope())
     var userManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
     var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
     await SeedRolesAsync(userManager, roleManager);
-    await SeedAdminUserAsync(userManager, roleManager); 
+    //await SeedAdminUserAsync(userManager, roleManager); we don't need to run this anymore.
 
 }
 
@@ -146,46 +146,7 @@ async Task SeedRolesAsync(UserManager<IdentityUser> userManager, RoleManager<Ide
 
 
 
-async Task SeedAdminUserAsync(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
-{
-    string adminEmail = "admin@example.com"; // Use a secure way to store and retrieve this
-    string adminPassword = "SecurePassword123!"; // Use a secure way to store and retrieve this
 
-    var adminUser = await userManager.FindByEmailAsync(adminEmail);
-    if (adminUser == null)
-    {
-        adminUser = new IdentityUser
-        {
-            UserName = adminEmail,
-            Email = adminEmail,
-            EmailConfirmed = true // Confirm email to bypass email verification
-        };
-
-        var createUserResult = await userManager.CreateAsync(adminUser, adminPassword);
-        if (createUserResult.Succeeded)
-        {
-            // Check if the admin role exists
-            if (!await roleManager.RoleExistsAsync("Admin"))
-            {
-                var adminRole = new IdentityRole("Admin");
-                await roleManager.CreateAsync(adminRole);
-            }
-
-            // Add the admin user to the admin role
-            var addToRoleResult = await userManager.AddToRoleAsync(adminUser, "Admin");
-            if (!addToRoleResult.Succeeded)
-            {
-                // Handle the case where the admin user could not be added to the admin role
-                throw new InvalidOperationException("Failed to add user to Admin role.");
-            }
-        }
-        else
-        {
-            // Handle the case where the admin user could not be created
-            throw new InvalidOperationException("Failed to create the Admin user.");
-        }
-    }
-}
 
 
 

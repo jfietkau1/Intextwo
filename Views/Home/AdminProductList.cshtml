@@ -3,8 +3,7 @@
 }
 
 @model List<Product>
-
-<table>
+<table class="table green-border table-striped p-2 shadow rounded-3">
     <thead>
     <td>Product Name</td>
     <td>Year</td>
@@ -36,6 +35,5 @@
             </tr>
         </tbody>
     }
+    <a class="btn btn-outline-primary" asp-controller="Home" asp-action="AdminAddProduct">+ Add Product</a>
 </table>
-
-<a class="btn btn-outline-primary" asp-controller="Home" asp-action="AdminAddProduct">+ Add Product</a>

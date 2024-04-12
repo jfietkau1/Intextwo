@@ -20,12 +20,38 @@
     }
 </script>
 
-<h1>User Management</h1>
-<form asp-action="AdminAddUser" method="get">
-    <button type="submit" class="btn btn-primary">Create User</button>
-</form>
 
-<table class="table green-border table-striped p-2 shadow rounded-3" id="userTable">
+<div class="green-brick-small text-white"></div>
+<div class="green-border bg-white table-striped p-2 shadow rounded-3">
+    <div class="row">
+        <div class="col">
+            <div class="text-center ">
+                <a class="btn add-cart-button rounded-pill" asp-controller="Home" asp-action="AdminProductList">Products</a>
+            </div>
+        </div>
+
+        <div class="col">
+            <form method="post">
+                <div class="text-center">
+                    <a class="btn add-cart-button rounded-pill" asp-controller="Home" asp-action="AdminViewOrders">Orders</a>
+                </div>
+            </form>
+        </div>
+
+        <div class="col">
+            <form method="post">
+                <div class="text-center">
+                    <a class="btn add-cart-button rounded-pill" asp-controller="Home" asp-action="AdminUpdateUser">Users</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="row absolute-center m-2">
+        <a class="btn btn-outline-primary" asp-controller="Home" asp-action="AdminAddUser">+ Add User</a>
+    </div>
+
+    <table class="table table-striped m-2">
     <thead>
         <tr>
             <th>Username</th>
@@ -56,4 +82,5 @@
     </tbody>
 
 </table>
+</div>
 

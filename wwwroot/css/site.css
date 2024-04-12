@@ -17,10 +17,12 @@ html {
 
 body {
     margin-bottom: 60px;
-    background-image: url('https://cdn.builder.io/api/v1/image/assets/TEMP/c62a513b7448bbf120ca9d535aea69301ca36f3fa03f4862677bfe7f22a664f9?apiKey=9a246791027840cdbefebef3c3499f5e&');
+    /*    background-image: url('../lib/img/lego wallpaper.png');
+*/
+    background-image: url('../lib/img/lego wallpaper 2.png');
     background-size: cover;
     background-repeat: no-repeat;
-    background-attachment: fixed;
+    background-attachment: scroll;
     font-family: "Space Mono", monospace;
     font-weight: 400;
     font-style: normal;
@@ -155,7 +157,6 @@ body {
     display: flex;
     justify-content: center;
     text-align: center;
-    margin-top: 25px;
 }
 
 .blue-border {
@@ -188,7 +189,6 @@ body {
     display: flex;
     justify-content: center;
     text-align: center;
-    margin-top: 25px;
 }
 
 .green-border {

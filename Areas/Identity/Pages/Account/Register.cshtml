@@ -42,7 +42,7 @@
     <div class="col-md-6 col-md-offset-2">
         <br />
         <section>
-            <h3>Use another service to register.</h3>
+            <h3>Log in with Google.</h3>
             <hr />
             @{
                 if ((Model.ExternalLogins?.Count ?? 0) == 0)
@@ -57,7 +57,7 @@
                 else
                 {
                     <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
-                        <div>
+                        <div class="absolute-center">
                             <p>
                                 @foreach (var provider in Model.ExternalLogins!)
                                 {

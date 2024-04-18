@@ -93,11 +93,17 @@ if (app.Environment.IsDevelopment())
         await next();
     });
 
+
     app.UseMigrationsEndPoint();
 }
 else
 {
     app.UseExceptionHandler("/Home/Error");
+
+    app.Use(async (context, next) => {
+        context.Response.Headers.Add("Content-Security-Policy", "default-src 'self'; img-src 'self' data: https://m.media-amazon.com https://www.lego.com https://images.brickset.com https://www.brickeconomy.com https://cdn.builder.io; script-src 'self' 'unsafe-inline' https://code.jquery.com https://cdn.jsdelivr.net https://maxcdn.bootstrapcdn.com; font-src 'self' https://fonts.gstatic.com https://fonts.googleapis.com; style-src 'self' https://maxcdn.bootstrapcdn.com https://cdn.jsdelivr.net 'unsafe-inline';"); // Adjust these directives according to your application's requirements
+        await next();
+    });
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
@@ -132,7 +138,7 @@ using (var scope = app.Services.CreateScope())
 
 async Task SeedRolesAsync(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
 {
-    if (!await roleManager.RoleExistsAsync("Admin"))
+     if (!await roleManager.RoleExistsAsync("Admin"))
     {
         var adminRole = new IdentityRole("Admin");
         await roleManager.CreateAsync(adminRole);
